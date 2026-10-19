@@ -1,36 +1,135 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gym'Association
 
-## Getting Started
+Site web moderne et accessible pour une association de gymnastique.
 
-First, run the development server:
+Le projet a été conçu avec un double objectif :
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- répondre aux besoins d'une véritable association sportive ;
+- démontrer une démarche professionnelle de développement Frontend avec Next.js, TypeScript, tests automatisés et CI/CD.
+
+---
+
+## 📋 Présentation
+
+Gym'Association est un site web responsive destiné à présenter une association de gymnastique et ses activités.
+
+Le site permet notamment de :
+
+- découvrir l'association ;
+- consulter les différentes activités ;
+- consulter les horaires ;
+- découvrir les actualités ;
+- consulter les événements ;
+- parcourir la galerie ;
+- effectuer une pré-inscription ;
+- contacter l'association ;
+- consulter les informations légales et la politique de confidentialité.
+
+L'architecture de la première version privilégie volontairement une approche frontend moderne et simple à maintenir.
+
+Le backend métier pourra être ajouté progressivement dans une version ultérieure.
+
+---
+
+## 🎯 Objectifs du projet
+
+Ce projet a été réalisé avec plusieurs objectifs techniques :
+
+- développer une interface responsive ;
+- respecter les bonnes pratiques HTML et sémantiques ;
+- améliorer l'accessibilité ;
+- mettre en place une base SEO solide ;
+- valider les données côté client avec Zod ;
+- gérer les formulaires avec React Hook Form ;
+- utiliser Formspree pour les soumissions de la V1 ;
+- mettre en place des tests unitaires ;
+- mettre en place des tests end-to-end ;
+- automatiser les contrôles avec GitHub Actions ;
+- préparer le projet pour un déploiement Vercel.
+
+---
+
+## 🛠️ Stack technique
+
+### Frontend
+
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
+- shadcn/ui
+
+### Formulaires
+
+- React Hook Form
+- Zod
+- @hookform/resolvers
+- Formspree
+
+### Tests
+
+- Vitest
+- Testing Library
+- jest-dom
+- User Event
+- Playwright
+- axe-core
+
+### Qualité et automatisation
+
+- ESLint
+- TypeScript
+- Git
+- GitHub
+- GitHub Actions
+
+### Déploiement
+
+- Vercel
+
+---
+
+## 🏗️ Architecture
+
+Le projet utilise l'App Router de Next.js.
+
+```text
+app/
+├── association/
+├── activites/
+├── horaires/
+├── actualites/
+├── evenements/
+├── galerie/
+├── inscription/
+├── contact/
+├── mentions-legales/
+├── confidentialite/
+├── page.tsx
+├── layout.tsx
+├── error.tsx
+├── loading.tsx
+├── not-found.tsx
+├── robots.ts
+└── sitemap.ts
+
+components/
+├── activities/
+├── events/
+├── layout/
+├── registration/
+├── sections/
+└── ...
+
+lib/
+├── data/
+└── validations/
+
+tests/
+├── unit/
+└── e2e/
+
+.github/
+└── workflows/
+    └── ci.yml
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
