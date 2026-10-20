@@ -127,7 +127,7 @@ export default function Footer() {
             © {new Date().getFullYear()} Gym&apos;Association. Tous droits
             réservés.
           </p>
-{/* 
+          {/* 
           <div className="flex gap-4">
             <Link
               href="/mentions-legales"
