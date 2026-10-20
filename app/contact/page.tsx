@@ -40,7 +40,7 @@ export default function ContactPage() {
                 </a>
               </div>
 
-              <div>
+              {/* <div>
                 <h3 className="font-semibold">Adresse</h3>
 
                 <address className="mt-2 not-italic text-sm leading-6 text-muted-foreground">
@@ -48,7 +48,7 @@ export default function ContactPage() {
                   <br />
                   00000 Ville
                 </address>
-              </div>
+              </div> */}
             </div>
           </div>
 
