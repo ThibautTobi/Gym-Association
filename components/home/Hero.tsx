@@ -15,7 +15,6 @@ import Link from "next/link";
  * (les accents dans un nom de fichier posent des problèmes selon les
  * systèmes : Windows en local, Linux chez l'hébergeur).
  */
-import presentationCours from "@/public/images/présentation-cours.png";
 
 /**
  * Section principale de la page d'accueil.
@@ -80,13 +79,15 @@ export default function Hero() {
             est le "Largest Contentful Paint" et qu'elle arrive tard,
             ajoute alors la propriété `preload` ci-dessous.
           */}
-          <Image
-            src={presentationCours}
-            alt="Présentation des activités sportives proposées par l'association"
-            placeholder="blur"
-            sizes="50vw"
-            className="h-auto w-full rounded-3xl"
-          />
+          <div className="relative aspect-4/3 overflow-hidden rounded-3xl">
+            <Image
+              src="/images/presentation-cours.png"
+              alt="Présentation des activités sportives proposées par l'association"
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
         </div>
       </div>
     </section>
