@@ -29,8 +29,7 @@ export const SITE_EMAIL = "[EMAIL_CONTACT]";
 export const SITE_PHONE = "[TELEPHONE_CONTACT]";
 
 // TODO ADRESSE : vérifier l'adresse exacte de la salle avant publication.
-export const SITE_ADDRESS =
-  "Salle du foyer rural de Val-de-Saâne, 76890";
+export const SITE_ADDRESS = "Salle du foyer rural de Val-de-Saâne, 76890";
 
 // URL publique du site.
 //
@@ -44,6 +43,4 @@ const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 const fallbackSiteUrl = "http://localhost:3000";
 
-export const SITE_URL = new URL(
-  configuredSiteUrl || fallbackSiteUrl,
-).origin;
+export const SITE_URL = new URL(configuredSiteUrl || fallbackSiteUrl).origin;
