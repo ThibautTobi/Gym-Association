@@ -174,7 +174,7 @@ describe("ContactForm", () => {
      *   Select-String -Path components\contact\ContactForm.tsx -Pattern "process.env"
      * (Si le composant n'utilise aucune variable, cette ligne est inoffensive.)
      */
-    vi.stubEnv("NEXT_PUBLIC_FORMSPREE_CONTACT_ID", "test-form-id");
+    vi.stubEnv("FORMSPREE_CONTACT_ID", "test-form-id");
 
     /**
      * Pas besoin de vi.clearAllMocks() : depuis Vitest 5, l'option

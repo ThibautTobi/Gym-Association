@@ -57,11 +57,11 @@ describe("RegistrationForm", () => {
     vi.clearAllMocks();
 
     /**
-     * Simule NEXT_PUBLIC_FORMSPREE_REGISTRATION_ID.
+     * Simule FORMSPREE_REGISTRATION_ID.
      * Sans elle, le composant affiche une erreur de configuration
      * et n'appelle jamais Formspree.
      */
-    vi.stubEnv("NEXT_PUBLIC_FORMSPREE_REGISTRATION_ID", "test-form-id");
+    vi.stubEnv("FORMSPREE_REGISTRATION_ID", "test-form-id");
 
     formspreeState.succeeded = false;
     formspreeState.submitting = false;
