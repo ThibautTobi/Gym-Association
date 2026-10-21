@@ -142,13 +142,13 @@ export default function MobileNav() {
 
             {/* CTA : séance d'essai */}
             <Link
-              href="/inscription"
+              href="/essai"
               onClick={closeMenu}
-              aria-current={isActive("/inscription") ? "page" : undefined}
+              aria-current={isActive("/essai") ? "page" : undefined}
               className={[
                 "mt-2 inline-flex min-h-11 items-center justify-center rounded-md",
                 "px-4 py-3 text-center font-semibold transition-colors",
-                isActive("/inscription")
+                isActive("/essai")
                   ? "bg-primary text-white"
                   : "bg-primary text-primary-foreground hover:bg-primary/90",
                 "focus-visible:bg-primary focus-visible:text-white",
