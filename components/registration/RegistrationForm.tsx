@@ -79,7 +79,7 @@ export default function RegistrationForm() {
    * et devra également être configurée dans Vercel
    * lors du déploiement.
    */
-  const formId = process.env.NEXT_PUBLIC_FORMSPREE_REGISTRATION_ID;
+  const formId = process.env.FORMSPREE_REGISTRATION_ID;
 
   /**
    * Formspree

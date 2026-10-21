@@ -50,7 +50,7 @@ export default function ContactForm() {
    * et devra également être configurée dans Vercel
    * lors du déploiement.
    */
-  const formId = process.env.NEXT_PUBLIC_FORMSPREE_CONTACT_ID;
+  const formId = process.env.FORMSPREE_CONTACT_ID;
 
   /**
    * Hook Formspree.
