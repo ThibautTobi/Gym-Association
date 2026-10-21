@@ -87,8 +87,8 @@ jobs:
 
     # Identifiants fictifs : les tests simulent les réponses de Formspree.
     env:
-      NEXT_PUBLIC_FORMSPREE_CONTACT_ID: "test-contact"
-      NEXT_PUBLIC_FORMSPREE_REGISTRATION_ID: "test-registration"
+      FORMSPREE_CONTACT_ID: "test-contact"
+      FORMSPREE_REGISTRATION_ID: "test-registration"
 
     steps:
       # ============================================================
