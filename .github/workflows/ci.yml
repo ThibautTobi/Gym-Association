@@ -90,7 +90,6 @@ jobs:
       NEXT_PUBLIC_FORMSPREE_CONTACT_ID: "test-contact"
       NEXT_PUBLIC_FORMSPREE_REGISTRATION_ID: "test-registration"
 
-
     steps:
       # ============================================================
       # 1. Récupération du dépôt
