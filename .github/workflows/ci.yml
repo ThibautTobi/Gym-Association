@@ -1,0 +1,138 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+      - chore/quality-and-project-pages
+      - "feature/**"
+      - "feat/**"
+      - "fix/**"
+      - "chore/**"
+      - "refactor/**"
+      - "test/**"
+      - "docs/**"
+
+  pull_request:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: read
+
+jobs:
+  quality:
+    name: Code quality
+    runs-on: ubuntu-latest
+
+    steps:
+      # ============================================================
+      # 1. Récupération du dépôt
+      # ============================================================
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      # ============================================================
+      # 2. Installation de Node.js
+      # ============================================================
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      # ============================================================
+      # 3. Installation des dépendances
+      #
+      # npm ci utilise package-lock.json.
+      # C'est préférable à npm install dans une CI.
+      # ============================================================
+      - name: Install dependencies
+        run: npm ci
+
+      # ============================================================
+      # 4. ESLint
+      # ============================================================
+      - name: Lint
+        run: npm run lint
+
+      # ============================================================
+      # 5. Prettier
+      # ============================================================
+      - name: Format check
+        run: npm run format:check
+
+      # ============================================================
+      # 6. Vérification TypeScript
+      # ============================================================
+      - name: TypeScript
+        run: npx tsc --noEmit
+
+      # ============================================================
+      # 7. Tests unitaires
+      # ============================================================
+      - name: Unit tests
+        run: npm run test:unit:run
+
+      # ============================================================
+      # 8. Build Next.js
+      # ============================================================
+      - name: Build
+        run: npm run build
+
+  e2e:
+    name: End-to-end tests
+    runs-on: ubuntu-latest
+
+    # Identifiants fictifs : les tests simulent les réponses de Formspree.
+    env:
+      NEXT_PUBLIC_FORMSPREE_CONTACT_ID: "test-contact"
+      NEXT_PUBLIC_FORMSPREE_REGISTRATION_ID: "test-registration"
+
+    steps:
+      # ============================================================
+      # 1. Récupération du dépôt
+      # ============================================================
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      # ============================================================
+      # 2. Node.js
+      # ============================================================
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 24
+          cache: npm
+
+      # ============================================================
+      # 3. Dépendances
+      # ============================================================
+      - name: Install dependencies
+        run: npm ci
+
+      # ============================================================
+      # 4. Installation des navigateurs Playwright
+      # ============================================================
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      # ============================================================
+      # 5. Tests E2E
+      # ============================================================
+      - name: Run Playwright tests
+        run: npm run test:e2e
+
+      # ============================================================
+      # 6. Conservation du rapport Playwright
+      #
+      # Le rapport est conservé même si les tests échouent.
+      # ============================================================
+      - name: Upload Playwright report
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
