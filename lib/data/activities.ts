@@ -21,6 +21,8 @@ export interface Activity {
     /** Description pour les lecteurs d'écran. */
     alt: string;
   };
+  lien?: string;
+  titreLien?: string;
 }
 
 /**
@@ -57,13 +59,6 @@ export const activities: Activity[] = [
     },
   },
   {
-    /**
-     * Le flyer propose deux groupes de gymnastique artistique :
-     * - "Gym artistique découverte" : dès 5 ans, 1re année ;
-     * - "Gymnastique artistique" (créneaux loisirs) : plus de 6 ans.
-     * Ils sont regroupés dans une seule fiche. Les horaires de chaque
-     * groupe figurent dans lib/data/schedules.ts.
-     */
     slug: "gymnastique-artistique",
     title: "Gymnastique artistique",
     shortDescription:
@@ -79,8 +74,6 @@ export const activities: Activity[] = [
       "Coordination et précision",
     ],
     image: {
-      // Image réutilisée de l'ancienne fiche "Gymnastique loisir".
-      // Tu peux la renommer (ex. gymnastique-artistique.png) et adapter ce chemin.
       src: "/images/gymnastique-loisir.png",
       alt: "Groupe de gymnastes pratiquant sur des tapis",
     },
@@ -92,7 +85,6 @@ export const activities: Activity[] = [
       "Des enchaînements dynamiques en musique pour travailler la coordination, le rythme et l'endurance.",
     description:
       "L'aérobic sportive associe mouvements gymniques, pas dynamiques et musique. Les séances développent la coordination, le sens du rythme et l'endurance, dans une ambiance énergique.",
-    // À vérifier : le flyer ne précise ni l'âge ni le niveau.
     ageRange: "Tous publics",
     level: "Tous niveaux",
     benefits: [
@@ -112,9 +104,6 @@ export const activities: Activity[] = [
     shortDescription: "Une séance qui associe marche active.",
     description:
       "Cette séance associe marche active. Ouverte à tous les niveaux, elle vise à améliorer l'endurance cardiovasculaire et la condition physique dans une ambiance conviviale.",
-    // À vérifier : le flyer ne précise ni le public ni le niveau.
-    // L'ancien texte parlait d'une marche en extérieur, alors que le visuel
-    // du flyer montre des exercices avec haltères en salle : précise-le si besoin.
     ageRange: "Adultes",
     level: "Tous niveaux",
     benefits: [
@@ -135,7 +124,6 @@ export const activities: Activity[] = [
       "Un travail en douceur pour renforcer les muscles profonds et améliorer la posture.",
     description:
       "Le cours de pilates s'adresse à tous les niveaux. Il propose des exercices contrôlés qui renforcent les muscles profonds et améliorent la posture, la souplesse et la respiration.",
-    // À vérifier : le flyer ne précise ni le public ni le niveau.
     ageRange: "Adultes",
     level: "Tous niveaux",
     benefits: [
@@ -145,22 +133,17 @@ export const activities: Activity[] = [
       "Concentration et respiration",
     ],
     image: {
-      src: "/images/pilate.png",
+      src: "/images/pilates.png",
       alt: "Personne pratiquant le pilates sur un tapis",
     },
   },
   {
-    /**
-     * Anciennement "Circuit training" (slug "circuit-training").
-     * Le flyer le nomme "Body cardio training".
-     */
     slug: "cardio-training",
     title: "cardio training",
     shortDescription:
       "Une séance dynamique pour travailler le cardio, l'endurance et la condition physique.",
     description:
       "Le body cardio training propose des exercices variés et dynamiques pour améliorer l'endurance, la force et la condition physique générale. Chacun adapte l'intensité à son niveau.",
-    // À vérifier : le flyer ne précise ni le public ni le niveau.
     ageRange: "Adultes",
     level: "Tous niveaux",
     benefits: [
@@ -170,10 +153,33 @@ export const activities: Activity[] = [
       "Intensité adaptable à chacun",
     ],
     image: {
-      // Le fichier garde son ancien nom : renomme-le si tu veux, puis adapte ce chemin.
       src: "/images/circuit-training.png",
       alt: "Participants réalisant des exercices de cardio training",
     },
+  },
+    {
+    slug: "coaching",
+    title: "coaching",
+    shortDescription:
+      "Une séance personnalisée pour répondre à vos besoins et objectifs.",
+    description:
+      "Le coaching personnalisé permet un suivi et des exercices adaptés à votre objectifs et votre niveaux.",
+    ageRange: "Adultes",
+    level: "Tous niveaux",
+    benefits: [
+      "Intensité adaptable à chacun",
+      "Suivi personnalisé",
+      "Objectifs adaptés à vos besoins",
+      "Plan d'entraînement sur mesure",
+      "Motivation et accompagnement",
+      "Amélioration de la condition physique"
+    ],
+    image: {
+      src: "/images/LTcoaching.png",
+      alt: "Participants réalisant des exercices de coaching",
+    },
+    lien: "https://lt-coaching.vercel.app/",
+    titreLien: "LT Coaching",
   },
 ];
 
