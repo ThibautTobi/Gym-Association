@@ -1,7 +1,10 @@
+import { Clock } from "lucide-react";
+
 interface PageIntroProps {
   eyebrow?: string;
   title: string;
   description?: string;
+  schedule?: string;
 }
 
 /**
@@ -14,6 +17,7 @@ export default function PageIntro({
   eyebrow,
   title,
   description,
+  schedule,
 }: PageIntroProps) {
   return (
     <section
@@ -37,6 +41,20 @@ export default function PageIntro({
         {description && (
           <p className="mt-5 max-w-2xl text-lg leading-8 text-muted-foreground">
             {description}
+          </p>
+        )}
+
+        {schedule && (
+          <p className="mt-4 inline-flex max-w-2xl items-start gap-2 rounded-lg bg-primary/10 px-3 py-2 text-sm font-medium text-primary">
+            <Clock
+              className="mt-0.5 h-4 w-4 shrink-0"
+              strokeWidth={1.75}
+              aria-hidden="true"
+            />
+            <span>
+              <span className="sr-only">Horaires : </span>
+              {schedule}
+            </span>
           </p>
         )}
       </div>
