@@ -11,6 +11,7 @@
 export type ScheduleItem =
   | {
       type: "course";
+      activitySlug: string;
       day: string;
       activity: string;
       ageRange: string;
@@ -40,6 +41,7 @@ export const schedules: ScheduleItem[] = [
     type: "course",
     day: "Mercredi",
     activity: "Baby Gym",
+    activitySlug: "baby-gym",
     ageRange: "Dès 18 mois",
     time: "10 h – 10 h 45",
   },
@@ -47,12 +49,11 @@ export const schedules: ScheduleItem[] = [
     type: "course",
     day: "Mercredi",
     activity: "Gym artistique découverte",
+    activitySlug: "gymnastique-artistique",
     ageRange: "Dès 5 ans (1re année)",
     time: "10 h 50 – 11 h 45",
   },
   {
-    // À vérifier : le flyer ne mentionne pas de pause, c'est le creux
-    // entre 11 h 45 et 14 h. Supprime cet élément si tu ne veux pas l'afficher.
     type: "break",
     day: "Mercredi",
     title: "Pause déjeuner",
@@ -63,7 +64,7 @@ export const schedules: ScheduleItem[] = [
     type: "course",
     day: "Mercredi",
     activity: "Marche active",
-    // À vérifier : public non précisé sur le flyer (visuel avec adultes).
+    activitySlug: "marche",
     ageRange: "Adultes",
     time: "14 h – 14 h 55",
   },
@@ -71,6 +72,7 @@ export const schedules: ScheduleItem[] = [
     type: "course",
     day: "Mercredi",
     activity: "Gymnastique – Loisirs",
+    activitySlug: "gymnastique-artistique",
     ageRange: "Plus de 6 ans",
     time: "15 h – 15 h 55",
   },
@@ -78,7 +80,7 @@ export const schedules: ScheduleItem[] = [
     type: "course",
     day: "Mercredi",
     activity: "Gymnastique Aérobic",
-    // À vérifier : public non précisé sur le flyer.
+    activitySlug: "gymnastique-aerobic",
     ageRange: "Tous publics",
     time: "16 h – 17 h 50",
   },
@@ -86,6 +88,7 @@ export const schedules: ScheduleItem[] = [
     type: "course",
     day: "Mercredi",
     activity: "Gymnastique – Loisirs",
+    activitySlug: "gymnastique-artistique",
     ageRange: "Plus de 6 ans",
     time: "17 h 50 – 18 h 45",
   },
@@ -93,7 +96,7 @@ export const schedules: ScheduleItem[] = [
     type: "course",
     day: "Mercredi",
     activity: "cardio training",
-    // À vérifier : public non précisé sur le flyer.
+    activitySlug: "cardio-training",
     ageRange: "Adultes",
     time: "18 h 55 – 19 h 40",
   },
@@ -101,8 +104,19 @@ export const schedules: ScheduleItem[] = [
     type: "course",
     day: "Mercredi",
     activity: "Pilates",
-    // À vérifier : public non précisé sur le flyer.
+    activitySlug: "pilates",
     ageRange: "Adultes",
     time: "19 h 45 – 20 h 30",
   },
 ];
+
+/** Retourne les horaires d'une activité, ex. "Mercredi 10 h – 10 h 45". */
+export function getScheduleTextBySlug(slug: string): string {
+  return schedules
+    .flatMap((item) =>
+      item.type === "course" && item.activitySlug === slug
+        ? [`${item.day} ${item.time}`]
+        : [],
+    )
+    .join(" · ");
+}

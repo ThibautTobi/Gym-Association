@@ -20,6 +20,7 @@ export default function ActivitiesPage() {
         eyebrow="Nos activités"
         title="La gymnastique pour tous"
         description="Découvrez nos différentes activités et trouvez la pratique adaptée à votre âge, votre niveau et vos envies."
+        schedule="Consultez les horaires et les lieux de nos activités pour planifier votre participation."
       />
 
       <section

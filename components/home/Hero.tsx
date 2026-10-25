@@ -85,7 +85,7 @@ export default function Hero() {
               alt="Présentation des activités sportives proposées par l'association"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"
-              className="object-cover"
+              className="object-contain"
             />
           </div>
         </div>

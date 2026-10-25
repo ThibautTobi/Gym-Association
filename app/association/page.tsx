@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { HeartHandshake, TrendingUp, Smile, Users } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 
 import PageIntro from "@/components/sections/PageIntro";
 
@@ -7,6 +9,35 @@ export const metadata: Metadata = {
   description:
     "Découvrez Gym'Association, son histoire, son fonctionnement et ses valeurs.",
 };
+
+type Value = {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+};
+
+const values: Value[] = [
+  {
+    title: "Respect",
+    description: "Respect des pratiquants, des encadrants et des règles.",
+    icon: HeartHandshake,
+  },
+  {
+    title: "Progression",
+    description: "Chacun progresse selon ses capacités et ses objectifs.",
+    icon: TrendingUp,
+  },
+  {
+    title: "Convivialité",
+    description: "Le sport est aussi un moment de partage.",
+    icon: Smile,
+  },
+  {
+    title: "Engagement",
+    description: "Une implication collective dans la vie de l'association.",
+    icon: Users,
+  },
+];
 
 export default function AssociationPage() {
   return (
@@ -50,34 +81,26 @@ export default function AssociationPage() {
               </h2>
 
               <ul className="mt-6 grid gap-4 sm:grid-cols-2">
-                <li className="rounded-xl border bg-card p-5">
-                  <h3 className="font-semibold">Respect</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Respect des pratiquants, des encadrants et des règles.
-                  </p>
-                </li>
+                {values.map(({ title, description, icon: Icon }) => (
+                  <li
+                    key={title}
+                    className="group flex items-start gap-4 rounded-xl border bg-card p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground"
+                    >
+                      <Icon className="h-5 w-5" strokeWidth={1.75} />
+                    </span>
 
-                <li className="rounded-xl border bg-card p-5">
-                  <h3 className="font-semibold">Progression</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Chacun progresse selon ses capacités et ses objectifs.
-                  </p>
-                </li>
-
-                <li className="rounded-xl border bg-card p-5">
-                  <h3 className="font-semibold">Convivialité</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Le sport est aussi un moment de partage.
-                  </p>
-                </li>
-
-                <li className="rounded-xl border bg-card p-5">
-                  <h3 className="font-semibold">Engagement</h3>
-                  <p className="mt-2 text-sm text-muted-foreground">
-                    Une implication collective dans la vie de
-                    l&apos;association.
-                  </p>
-                </li>
+                    <div>
+                      <h3 className="font-semibold">{title}</h3>
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        {description}
+                      </p>
+                    </div>
+                  </li>
+                ))}
               </ul>
             </section>
           </div>
