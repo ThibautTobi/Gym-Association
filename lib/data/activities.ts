@@ -157,7 +157,7 @@ export const activities: Activity[] = [
       alt: "Participants réalisant des exercices de cardio training",
     },
   },
-    {
+  {
     slug: "coaching",
     title: "coaching",
     shortDescription:
@@ -172,7 +172,7 @@ export const activities: Activity[] = [
       "Objectifs adaptés à vos besoins",
       "Plan d'entraînement sur mesure",
       "Motivation et accompagnement",
-      "Amélioration de la condition physique"
+      "Amélioration de la condition physique",
     ],
     image: {
       src: "/images/LTcoaching.png",
