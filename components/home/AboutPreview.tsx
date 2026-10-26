@@ -12,7 +12,7 @@ export default function AboutPreview() {
             alt="Présentation des activités sportives proposées par l'association"
             width={1200}
             height={900}
-            sizes="(max-width: 1023px) 100vw, 50vw"
+            sizes="(min-width: 1280px) 588px, (min-width: 1024px) calc((100vw - 104px) / 2), calc(100vw - 32px)"
             className="h-auto w-full rounded-2xl object-contain"
           />
         </div>
