@@ -81,7 +81,7 @@ export default function Hero() {
           */}
           <div className="relative aspect-4/3 overflow-hidden rounded-3xl">
             <Image
-              src="/images/presentation-cours.png"
+              src="/images/presentation-cours.webp"
               alt="Présentation des activités sportives proposées par l'association"
               fill
               sizes="(min-width: 1024px) 50vw, 100vw"

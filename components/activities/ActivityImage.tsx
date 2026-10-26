@@ -37,16 +37,16 @@ const fitClasses = {
 };
 
 /**
- * Largeur affichée d'une carte d'activité dans la grille
- * (mobile : 1 colonne, tablette : 2, desktop : 4).
+ * Tailles estimées de l'image selon la grille :
+ * - Grand écran : 4 colonnes dans un conteneur max-w-7xl.
+ * - Tablette : 2 colonnes.
+ * - Mobile : 1 colonne.
  *
- * Partagée par la page d'accueil et la page "Activités" : si la grille
- * change, on ne modifie qu'ici. Le navigateur s'en sert pour télécharger
- * une image de la bonne taille.
+ * Ces valeurs tiennent compte des marges et des espacements de la grille
+ * pour éviter de télécharger des images inutilement grandes.
  */
 export const ACTIVITY_CARD_SIZES =
-  "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw";
-
+  "(min-width: 1280px) 286px, (min-width: 1024px) calc((100vw - 136px) / 4), (min-width: 640px) calc((100vw - 72px) / 2), calc(100vw - 32px)";
 interface ActivityImageProps {
   /** Chemin à partir de `public/` : "/images/baby-gym.png" */
   src: string;
