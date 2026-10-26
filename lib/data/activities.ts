@@ -54,7 +54,7 @@ export const activities: Activity[] = [
       "Découverte de l'activité physique",
     ],
     image: {
-      src: "/images/baby-gym.png",
+      src: "/images/baby-gym.webp",
       alt: "Jeunes enfants jouant sur des modules de motricité en salle",
     },
   },
@@ -74,7 +74,7 @@ export const activities: Activity[] = [
       "Coordination et précision",
     ],
     image: {
-      src: "/images/gymnastique-loisir.png",
+      src: "/images/gymnastique-loisir.webp",
       alt: "Groupe de gymnastes pratiquant sur des tapis",
     },
   },
@@ -94,7 +94,7 @@ export const activities: Activity[] = [
       "Dynamisme et bonne humeur",
     ],
     image: {
-      src: "/images/gymnastique-aerobic.png",
+      src: "/images/gymnastique-aerobic.webp",
       alt: "Gymnaste réalisant un exercice d'aérobic",
     },
   },
@@ -113,7 +113,7 @@ export const activities: Activity[] = [
       "Moment convivial",
     ],
     image: {
-      src: "/images/marche.png",
+      src: "/images/marche.webp",
       alt: "Séance de marche active",
     },
   },
@@ -133,7 +133,7 @@ export const activities: Activity[] = [
       "Concentration et respiration",
     ],
     image: {
-      src: "/images/pilates.png",
+      src: "/images/pilates.webp",
       alt: "Personne pratiquant le pilates sur un tapis",
     },
   },
@@ -153,7 +153,7 @@ export const activities: Activity[] = [
       "Intensité adaptable à chacun",
     ],
     image: {
-      src: "/images/circuit-training.png",
+      src: "/images/circuit-training.webp",
       alt: "Participants réalisant des exercices de cardio training",
     },
   },
@@ -175,7 +175,7 @@ export const activities: Activity[] = [
       "Amélioration de la condition physique",
     ],
     image: {
-      src: "/images/LTcoaching.png",
+      src: "/images/LTcoaching.webp",
       alt: "Participants réalisant des exercices de coaching",
     },
     lien: "https://lt-coaching.vercel.app/",

@@ -8,7 +8,7 @@ export default function AboutPreview() {
         {/* Illustration de l'association */}
         <div className="overflow-hidden rounded-2xl">
           <Image
-            src="/images/association-pour-tous.png"
+            src="/images/association-pour-tous.webp"
             alt="Présentation des activités sportives proposées par l'association"
             width={1200}
             height={900}
