@@ -31,6 +31,32 @@
  */
 
 :root {
+
+  /* 
+  
+  Palette proposée
+Bleu profond
+#174675
+Titres, navigation, textes forts
+
+Turquoise
+#25BFC0
+Vagues, illustrations, éléments graphiques
+
+Rose dynamique
+#E83F83
+Boutons secondaires, détails et accents
+
+Jaune soleil
+#F4C445
+Petits accents, décorations et pictogrammes
+
+
+Fond clair : #F7FAFC
+
+Pour garder une bonne lisibilité, les couleurs vives seront surtout utilisées dans les éléments graphiques, plutôt que derrière de longs paragraphes.
+  
+  */
   /*
    * ==========================================================
    * COULEUR PRINCIPALE
@@ -47,6 +73,8 @@
    */
 
   --color-primary: #2563eb;
+  /* --color-primary: #174675; */
+  /* --color-primary: #06B6D4; */
   --color-primary-foreground: #ffffff;
 
   /*
@@ -64,8 +92,11 @@
    * - effets visuels
    */
 
-  --color-secondary: #06b6d4;
-  --color-secondary-foreground: #ffffff;
+  /* --color-secondary: #06b6d4; */
+  /* --color-secondary-foreground: #ffffff; */
+  /* --color-secondary: #25bfc0; */
+  --color-secondary: #06B6D4;
+  --color-secondary-foreground: #083f50;
 
   /*
    * ==========================================================
@@ -82,8 +113,10 @@
    * - informations complémentaires
    */
 
-  --color-accent: #10b981;
-  --color-accent-foreground: #ffffff;
+  /* --color-accent: #10b981; */
+
+  --color-accent: #E83F83;
+  --color-accent-foreground: #F4C445;
 
   /*
    * ==========================================================
@@ -95,7 +128,8 @@
    * beaucoup de contenu.
    */
 
-  --color-background: #f8fafc;
+  /* --color-background: #f8fafc; */
+  --color-background: #f7fafc;
   --color-foreground: #172033;
 
   /*
