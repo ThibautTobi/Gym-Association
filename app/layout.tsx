@@ -6,6 +6,7 @@ import Footer from "@/components/layout/Footer";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 import "./globals.css";
+import WaveSeparator from "@/components/ui/WaveSeparator";
 
 /**
  * Métadonnées SEO globales du site Gym'Association.
@@ -84,10 +85,78 @@ export default function RootLayout({
       <body className="min-h-screen">
         <div className="flex min-h-screen flex-col">
           <Header />
+{/* 
+<WaveSeparator
+        position="top"
+        backgroundColor="transparent"
+        topPadding={0}
+        topLayers={[
+          {
+            color: "turquoise",
+            height: 120,
+            offsetY: 0,
+            opacity: 1,
+            phase: 0,
+            flip: true,
+
+          },
+          {
+            color: "pink",
+            height: 75,
+            offsetY: 0,
+            opacity: 1,
+            phase: 0,
+            flip: true,
+          },
+          {
+            color: "yellow",
+            height: 50,
+            offsetY: 0,
+            opacity: 1,
+            phase: 0,
+            flip: true,
+          },
+        ]}
+      >
+        <div className="w-full h-34"/>
+        </WaveSeparator> */}
+
 
           <main id="main-content" className="flex-1">
             {children}
           </main>
+
+
+<WaveSeparator
+        position="top"
+        backgroundColor="transparent"
+        topPadding={0}
+        topLayers={[
+          {
+            color: "turquoise",
+            height: 120,
+            offsetY: 40,
+            opacity: 1,
+            phase: 0,
+          },
+          {
+            color: "pink",
+            height: 100,
+            offsetY: 60,
+            opacity: 1,
+            phase: 0,
+          },
+          {
+            color: "yellow",
+            height: 45,
+            offsetY: 95,
+            opacity: 1,
+            phase: 0,
+          },
+        ]}
+      >
+        <div className="w-full h-34"/>
+        </WaveSeparator>
 
           <Footer />
         </div>
