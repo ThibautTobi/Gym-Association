@@ -5,6 +5,9 @@ import PageIntro from "@/components/sections/PageIntro";
 export const metadata: Metadata = {
   title: "Galerie",
   description: "Découvrez en images la vie de Gym'Association.",
+  alternates: {
+    canonical: "/galerie",
+  },
 };
 
 export default function GalleryPage() {

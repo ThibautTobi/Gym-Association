@@ -8,54 +8,66 @@ interface ActivityCardProps {
 }
 
 /**
- * Carte permettant de présenter une activité.
+ * Carte de présentation d'une activité.
+ *
+ * Utilisée sur la page complète des activités.
+ *
+ * Les activités externes sont identifiées par un badge.
  *
  * Emplacement : components/activities/ActivityCard.tsx
  */
 export default function ActivityCard({ activity }: ActivityCardProps) {
   return (
-    /**
-     * `group` + `overflow-hidden` : l'image suit les coins arrondis et
-     * peut réagir au survol de la carte. Le padding est déplacé dans le
-     * bloc de texte pour que l'image occupe toute la largeur.
-     */
-    <article className="group flex h-full flex-col overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow hover:shadow-md">
+    <article className="group flex h-full flex-col overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow duration-300 hover:shadow-md motion-reduce:transition-none">
+      {/* Image de l'activité */}
       <ActivityImage src={activity.image.src} alt={activity.image.alt} />
 
+      {/* Informations principales */}
       <div className="flex flex-1 flex-col p-6">
         <div>
-          {/*
-            h3 : la page "Activités" contient déjà un h2 (masqué) qui
-            introduit la liste. Les titres des cartes sont donc un niveau
-            en dessous, ce qui garde une hiérarchie correcte.
-          */}
+          {/* Identification des services externes */}
+          {activity.isExternal && (
+            <span className="mb-3 inline-flex w-fit items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-semibold text-primary">
+              Service externe
+            </span>
+          )}
+
+          {/* Titre de l'activité */}
           <h3 className="text-xl font-semibold">{activity.title}</h3>
 
+          {/* Description courte */}
           <p className="mt-3 text-sm leading-6 text-muted-foreground">
             {activity.shortDescription}
           </p>
         </div>
 
+        {/* Informations complémentaires */}
         <dl className="mt-6 space-y-2 text-sm">
-          <div className="flex gap-2">
-            <dt className="font-semibold">Âge :</dt>
+          <div className="flex items-start gap-2">
+            <dt className="shrink-0 font-semibold">Âge :</dt>
+
             <dd className="text-muted-foreground">{activity.ageRange}</dd>
           </div>
 
-          <div className="flex gap-2">
-            <dt className="font-semibold">Niveau :</dt>
+          <div className="flex items-start gap-2">
+            <dt className="shrink-0 font-semibold">Niveau :</dt>
+
             <dd className="text-muted-foreground">{activity.level}</dd>
           </div>
         </dl>
 
+        {/* Lien vers la page détaillée */}
         <div className="mt-auto pt-6">
           <Link
             href={`/activites/${activity.slug}`}
-            className="inline-flex min-h-11 items-center font-medium text-primary hover:text-accent hover:scale-105 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="inline-flex min-h-11 items-center font-medium text-primary transition-colors hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none"
           >
-            Découvrir l&apos;activité
-            <span className="sr-only"> {activity.title}</span>
-            <span aria-hidden="true" className="ml-2">
+            Découvrir l&lsquo;activité
+            <span className="sr-only"> : {activity.title}</span>
+            <span
+              aria-hidden="true"
+              className="ml-2 transition-transform duration-200 group-hover:translate-x-1 motion-reduce:transition-none"
+            >
               →
             </span>
           </Link>

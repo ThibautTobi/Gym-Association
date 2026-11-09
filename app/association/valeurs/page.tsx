@@ -1,11 +1,49 @@
 import type { Metadata } from "next";
 
 import PageIntro from "@/components/sections/PageIntro";
+import {
+  SITE_NAME,
+  SITE_URL,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_DIMENSIONS,
+} from "@/lib/site";
+
+const PAGE_TITLE = "Nos valeurs";
+
+const PAGE_DESCRIPTION =
+  "Découvrez les valeurs qui guident Gymnastique Val de Saâne dans sa pratique sportive et sa vie associative.";
 
 export const metadata: Metadata = {
-  title: "Nos valeurs",
-  description:
-    "Découvrez les valeurs qui guident Gym'Association dans sa pratique sportive et sa vie associative.",
+  title: PAGE_TITLE,
+  description: PAGE_DESCRIPTION,
+
+  alternates: {
+    canonical: "/association/valeurs",
+  },
+
+  openGraph: {
+    type: "website",
+    url: `${SITE_URL}/association/valeurs`,
+    siteName: SITE_NAME,
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+        width: SITE_OG_IMAGE_DIMENSIONS.width,
+        height: SITE_OG_IMAGE_DIMENSIONS.height,
+        alt: SITE_OG_IMAGE_ALT,
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [SITE_OG_IMAGE],
+  },
 };
 
 const values = [
@@ -43,7 +81,7 @@ export default function ValuesPage() {
       <section aria-labelledby="values-title" className="py-16 sm:py-20">
         <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
           <h2 id="values-title" className="sr-only">
-            Les valeurs de l association
+            Les valeurs de l&lsquo;association
           </h2>
 
           <div className="grid gap-6 sm:grid-cols-2">

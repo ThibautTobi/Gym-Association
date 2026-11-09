@@ -1,46 +1,202 @@
 /**
- * Configuration centrale du site Gym'Association.
+ * Configuration centrale du site Gymnastique Val de Saâne.
  *
- * TODO AVANT LA MISE EN PRODUCTION DÉFINITIVE :
- * 1. Remplacer les valeurs provisoires par les informations réelles.
- * 2. Configurer NEXT_PUBLIC_SITE_URL dans les variables d'environnement
- *    de Vercel et de GitHub Actions.
- * 3. Vérifier les coordonnées et les lieux avant publication.
+ * Ce fichier centralise :
+ * - Les informations générales de l'association.
+ * - Les coordonnées.
+ * - L'URL publique.
+ * - Les lieux de pratique par saison sportive.
  *
- * Les composants et les métadonnées doivent réutiliser ces valeurs
- * au lieu de recopier les informations à plusieurs endroits.
+ * IMPORTANT :
+ * Vérifier les valeurs marquées TODO avant la mise en production.
  */
 
-// TODO SEO : remplacer par le nom officiel de l'association.
-export const SITE_NAME = "Gymnastique val de saâne";
+// ============================================================
+// IDENTITÉ DU SITE
+// ============================================================
 
-// TODO SEO : remplacer par une description fidèle à l'association.
+export const SITE_NAME = "Gymnastique Val de Saâne";
+
+export const SITE_SHORT_NAME = "Gym Val de Saâne";
+
 export const SITE_DESCRIPTION =
-  "Découvrez nos activités sportives : Pilates, yoga, circuit training, marche, Baby Gym et gymnastique.";
+  "Découvrez les activités sportives de Gymnastique Val de Saâne : gymnastique, Baby Gym, Pilates, aérobic sportive, marche active et activités physiques pour tous.";
 
-// TODO SEO LOCAL : confirmer la commune exacte.
-export const SITE_CITY = "Saint-Pierre-Bénouville";
+// ============================================================
+// IMAGE DE PARTAGE : OPEN GRAPH ET TWITTER
+// ============================================================
 
-// TODO SEO LOCAL : indiquer les communes réellement desservies.
-export const SITE_SERVICE_AREAS = "[COMMUNES_DESSERVIES]";
+/**
+ * Image utilisée lors du partage du site sur les réseaux sociaux.
+ *
+ * Emplacement physique :
+ * public/images/og-image.jpg
+ *
+ * URL publique :
+ * /images/og-image.jpg
+ *
+ * Dimensions recommandées : 1200 x 630 pixels.
+ */
+export const SITE_OG_IMAGE = "/images/og/og-gymnastique-val-de-saane.webp";
 
-// TODO CONTACT : renseigner les coordonnées officielles.
-export const SITE_EMAIL = "[EMAIL_CONTACT]";
-export const SITE_PHONE = "[TELEPHONE_CONTACT]";
+export const SITE_OG_IMAGE_ALT =
+  "Gymnastique Val de Saâne - Association sportive";
 
-// TODO ADRESSE : vérifier l'adresse exacte de la salle avant publication.
-export const SITE_ADDRESS = "Salle du foyer rural de Val-de-Saâne, 76890";
+export const SITE_OG_IMAGE_DIMENSIONS = {
+  width: 1200,
+  height: 630,
+};
 
-// URL publique du site.
-//
-// En production, NEXT_PUBLIC_SITE_URL doit être définie dans Vercel.
-// En développement et dans les environnements de test, localhost est
-// utilisé par défaut si la variable est absente.
-//
-// IMPORTANT : le fallback évite de bloquer le build CI, mais ne doit
-// pas remplacer l'URL publique réelle pour le SEO en production.
+// ============================================================
+// COORDONNÉES DE L'ASSOCIATION
+// ============================================================
+
+export const SITE_EMAIL = "gymnastique.vds@gmail.com";
+
+export const SITE_PHONE = "07.69.33.08.37";
+
+/**
+ * Communes desservies par l'association.
+ *
+ * TODO :
+ * Remplacer par les communes réellement concernées.
+ * Ne pas ajouter de communes uniquement pour le SEO.
+ */
+export const SITE_SERVICE_AREAS = ["Saint-Pierre-Bénouville", "Val-de-Saâne"];
+
+// ============================================================
+// URL PUBLIQUE
+// ============================================================
+
+/**
+ * Configurer NEXT_PUBLIC_SITE_URL dans :
+ * - .env.local en développement.
+ * - Vercel en production.
+ *
+ * Exemple :
+ * NEXT_PUBLIC_SITE_URL=https://www.votre-domaine.fr
+ */
+
 const configuredSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+
+if (process.env.NODE_ENV === "production" && !configuredSiteUrl) {
+  throw new Error("NEXT_PUBLIC_SITE_URL doit être configurée en production.");
+}
 
 const fallbackSiteUrl = "http://localhost:3000";
 
-export const SITE_URL = new URL(configuredSiteUrl || fallbackSiteUrl).origin;
+const rawSiteUrl = configuredSiteUrl || fallbackSiteUrl;
+
+let parsedSiteUrl: URL;
+
+try {
+  parsedSiteUrl = new URL(rawSiteUrl);
+} catch {
+  throw new Error(`L'URL du site est invalide : ${rawSiteUrl}`);
+}
+
+if (!["http:", "https:"].includes(parsedSiteUrl.protocol)) {
+  throw new Error("L'URL du site doit utiliser HTTP ou HTTPS.");
+}
+
+/**
+ * URL de référence du site, sans slash final ni chemin.
+ */
+export const SITE_URL = parsedSiteUrl.origin;
+
+// ============================================================
+// SAISONS SPORTIVES
+// ============================================================
+
+/**
+ * Saison sportive actuellement concernée par le site.
+ *
+ * TODO :
+ * Modifier cette valeur lors du changement de saison.
+ */
+export const CURRENT_SEASON = {
+  label: "2026-2027",
+  startYear: 2026,
+  endYear: 2027,
+};
+
+// ============================================================
+// LIEU ACTUEL : SAISON 2026-2027
+// ============================================================
+
+export const CURRENT_VENUE = {
+  season: "2026-2027",
+
+  name: "Salle du foyer rural",
+
+  streetAddress: "11 route de la Forge",
+
+  postalCode: "76890",
+
+  city: "Saint-Pierre-Bénouville",
+
+  country: "France",
+
+  get fullAddress() {
+    return `${this.streetAddress}, ${this.postalCode} ${this.city}`;
+  },
+};
+
+// ============================================================
+// FUTUR LIEU : SAISON 2027-2028
+// ============================================================
+
+/**
+ * Déménagement annoncé pour la prochaine saison.
+ *
+ * ATTENTION :
+ * Cette adresse ne doit pas être présentée comme le lieu
+ * actuel avant que le déménagement soit effectivement réalisé.
+ *
+ * TODO :
+ * Confirmer la date et le nom officiel de la salle.
+ */
+export const UPCOMING_VENUE = {
+  season: "2027-2028",
+
+  name: "Salle polyvalente",
+
+  streetAddress: "Place Jehan Povremoyne",
+
+  postalCode: "76890",
+
+  city: "Val-de-Saâne",
+
+  country: "France",
+
+  planned: true,
+
+  /**
+   * Date effective du déménagement.
+   * À renseigner lorsqu'elle sera confirmée.
+   */
+  effectiveDate: null as string | null,
+
+  get fullAddress() {
+    return `${this.streetAddress}, ${this.postalCode} ${this.city}`;
+  },
+};
+
+// ============================================================
+// INFORMATIONS SUR LES LIEUX
+// ============================================================
+
+/**
+ * Retourne le lieu correspondant à une saison.
+ */
+export function getVenueBySeason(season: string) {
+  if (season === CURRENT_VENUE.season) {
+    return CURRENT_VENUE;
+  }
+
+  if (season === UPCOMING_VENUE.season) {
+    return UPCOMING_VENUE;
+  }
+
+  return null;
+}
