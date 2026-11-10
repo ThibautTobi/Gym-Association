@@ -7,6 +7,9 @@ import { newsArticles } from "@/lib/data/news";
 export const metadata: Metadata = {
   title: "Actualités",
   description: "Retrouvez les dernières actualités de Gym'Association.",
+  alternates: {
+    canonical: "/actualites",
+  },
 };
 
 export default function NewsPage() {

@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "L'association",
   description:
     "Découvrez Gym'Association, son histoire, son fonctionnement et ses valeurs.",
+  alternates: {
+    canonical: "/association",
+  },
 };
 
 type Value = {

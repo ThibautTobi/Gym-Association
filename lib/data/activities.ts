@@ -1,190 +1,310 @@
 /**
- * Représente une activité proposée par l'association.
+ * Données centralisées des activités de Gymnastique Val de Saâne.
  *
- * Emplacement : lib/data/activities.ts
+ * Ce fichier sert de source unique pour :
+ * - La présentation des activités sur la page d'accueil.
+ * - La liste complète des activités.
+ * - Les pages détaillées /activites/[slug].
  *
- * Cette interface sert aujourd'hui pour les données statiques.
- * Plus tard, la structure pourra être alimentée par Prisma/PostgreSQL
- * sans modifier les composants qui affichent les activités.
+ * IMPORTANT :
+ * - Les horaires sont centralisés dans lib/data/schedules.ts.
+ * - Les lieux et les saisons sont centralisés dans lib/site.ts.
+ * - Les images doivent être présentes dans public/images/.
+ */
+
+/**
+ * Structure d'une activité.
  */
 export interface Activity {
+  /** Identifiant utilisé dans les URL : /activites/[slug] */
   slug: string;
+
+  /** Nom affiché de l'activité */
   title: string;
+
+  /** Description courte utilisée dans les cartes */
   shortDescription: string;
+
+  /** Description détaillée utilisée sur la page de l'activité */
   description: string;
+
+  /** Public ou tranche d'âge concernée */
   ageRange: string;
+
+  /** Niveau ou type de pratique */
   level: string;
+
+  /** Liste des bénéfices de l'activité */
   benefits: string[];
+
+  /** Image illustrative de l'activité */
   image: {
-    /** Chemin à partir de `public/` : "/images/baby-gym.png" */
+    /** Chemin de l'image depuis le dossier public */
     src: string;
-    /** Description pour les lecteurs d'écran. */
+
+    /** Description accessible de l'image */
     alt: string;
   };
+
+  /**
+   * Lien externe facultatif.
+   * À utiliser uniquement lorsqu'une activité renvoie vers un service externe.
+   */
   lien?: string;
+
+  /** Texte affiché sur le lien externe */
   titreLien?: string;
+
+  /** Indique si le service est proposé par un organisme externe */
+  isExternal?: boolean;
 }
 
 /**
- * Liste des activités proposées par l'association, saison 2026-2027.
+ * Liste des activités proposées ou présentées par l'association.
  *
- * Source UNIQUE de vérité : la page d'accueil, la liste des activités et
- * les pages de détail lisent toutes ce tableau. Pour ajouter une
- * activité, il suffit d'ajouter un objet ici (et son image dans
- * `public/images/`).
- *
- * Les âges et intitulés viennent du flyer de la saison. Les champs
- * marqués "À vérifier" ne figurent pas sur le flyer : corrige-les si
- * besoin. Les horaires sont dans lib/data/schedules.ts.
+ * Pour ajouter une activité :
+ * 1. Ajouter un objet dans ce tableau.
+ * 2. Créer son image dans public/images/.
+ * 3. Ajouter ses horaires dans schedules.ts si nécessaire.
+ * 4. Vérifier que son slug est unique.
  */
 export const activities: Activity[] = [
+  // --------------------------------------------------
+  // 1. BABY GYM
+  // --------------------------------------------------
   {
     slug: "baby-gym",
     title: "Baby Gym",
+
     shortDescription:
-      "Une première découverte de la motricité et de la gymnastique dans un environnement ludique.",
+      "Une activité ludique pour accompagner les tout-petits dans leurs premières découvertes motrices.",
+
     description:
-      "La Baby Gym permet aux plus jeunes, dès 18 mois, de développer leur motricité, leur coordination et leur équilibre grâce à des parcours et des exercices adaptés à leur âge.",
+      "La Baby Gym permet aux jeunes enfants de découvrir le mouvement et leur environnement à travers des parcours et des jeux adaptés. Les séances favorisent le développement de la motricité, de l'équilibre et de la coordination, tout en encourageant l'autonomie et la confiance en soi.",
+
     ageRange: "Dès 18 mois",
+
     level: "Débutant",
+
     benefits: [
-      "Développement de la motricité",
-      "Travail de l'équilibre",
-      "Coordination des mouvements",
-      "Découverte de l'activité physique",
+      "Développer la motricité globale",
+      "Améliorer l'équilibre et la coordination",
+      "Découvrir son corps et ses capacités",
+      "Favoriser l'autonomie et la confiance en soi",
+      "Apprendre en s'amusant",
     ],
+
     image: {
       src: "/images/baby-gym.webp",
-      alt: "Jeunes enfants jouant sur des modules de motricité en salle",
+      alt: "Jeunes enfants participant à une séance de Baby Gym sur un parcours de motricité.",
     },
   },
+
+  // --------------------------------------------------
+  // 2. GYMNASTIQUE ARTISTIQUE
+  // --------------------------------------------------
   {
     slug: "gymnastique-artistique",
     title: "Gymnastique artistique",
+
     shortDescription:
-      "Découvrir la gymnastique artistique, puis progresser à son rythme en loisir.",
+      "Découvrir les bases de la gymnastique et progresser à son rythme grâce à des exercices adaptés.",
+
     description:
-      "La gymnastique artistique propose un travail technique autour des différents agrès. Un groupe découverte accueille les enfants dès 5 ans pour leur première année, puis les séances loisirs s'adressent aux plus de 6 ans. Les pratiquants développent progressivement force, souplesse, coordination et maîtrise corporelle.",
-    ageRange: "Dès 5 ans (découverte), plus de 6 ans (loisirs)",
+      "La gymnastique artistique permet de développer la souplesse, l'équilibre, la coordination et la maîtrise du corps. Les premières séances sont consacrées à la découverte des mouvements et des fondamentaux de la gymnastique. Les séances loisirs s'adressent ensuite aux enfants de plus de 6 ans souhaitant pratiquer une activité sportive dans un cadre ludique et adapté à leur niveau.",
+
+    ageRange: "Dès 5 ans",
+
     level: "Découverte et loisirs",
+
     benefits: [
-      "Découverte des agrès",
-      "Développement de la force",
-      "Souplesse",
-      "Coordination et précision",
+      "Développer la souplesse et la mobilité",
+      "Améliorer l'équilibre et la coordination",
+      "Renforcer les muscles",
+      "Apprendre les mouvements fondamentaux",
+      "Développer la confiance en soi",
+      "Progresser à son rythme",
     ],
+
     image: {
       src: "/images/gymnastique-loisir.webp",
-      alt: "Groupe de gymnastes pratiquant sur des tapis",
+      alt: "Enfant réalisant un exercice de gymnastique artistique sur un tapis.",
     },
   },
+
+  // --------------------------------------------------
+  // 3. GYMNASTIQUE AÉROBIC
+  // --------------------------------------------------
   {
     slug: "gymnastique-aerobic",
-    title: "Aérobic sportive",
+    title: "Gymnastique aérobic",
+
     shortDescription:
-      "Des enchaînements dynamiques en musique pour travailler la coordination, le rythme et l'endurance.",
+      "Une discipline dynamique associant mouvements gymniques, coordination, rythme et endurance.",
+
     description:
-      "L'aérobic sportive associe mouvements gymniques, pas dynamiques et musique. Les séances développent la coordination, le sens du rythme et l'endurance, dans une ambiance énergique.",
+      "La gymnastique aérobic est une discipline sportive qui associe des mouvements gymniques, des enchaînements dynamiques et un travail sur le rythme. Elle permet de développer l'endurance, la coordination, la tonicité et la maîtrise des mouvements. Les séances permettent de progresser individuellement et collectivement dans une ambiance sportive et motivante.",
+
     ageRange: "Tous publics",
-    level: "Tous niveaux",
+
+    level: "Selon les capacités et la progression",
+
     benefits: [
-      "Coordination et sens du rythme",
-      "Endurance cardiovasculaire",
-      "Mémorisation d'enchaînements",
-      "Dynamisme et bonne humeur",
+      "Améliorer l'endurance cardiovasculaire",
+      "Développer la coordination",
+      "Renforcer la tonicité musculaire",
+      "Travailler le rythme et la précision",
+      "Améliorer la condition physique",
+      "Développer l'esprit d'équipe",
     ],
+
     image: {
       src: "/images/gymnastique-aerobic.webp",
-      alt: "Gymnaste réalisant un exercice d'aérobic",
+      alt: "Pratique de la gymnastique aérobic avec des mouvements dynamiques et chorégraphiés.",
     },
   },
+
+  // --------------------------------------------------
+  // 4. MARCHE ACTIVE
+  // --------------------------------------------------
   {
     slug: "marche",
     title: "Marche active",
-    shortDescription: "Une séance qui associe marche active.",
+
+    shortDescription:
+      "Une activité accessible pour entretenir sa condition physique tout en profitant de la marche.",
+
     description:
-      "Cette séance associe marche active. Ouverte à tous les niveaux, elle vise à améliorer l'endurance cardiovasculaire et la condition physique dans une ambiance conviviale.",
+      "La marche active est une activité physique qui consiste à marcher à un rythme soutenu et régulier. Elle permet d'entretenir son endurance, de solliciter les muscles et de prendre soin de sa condition physique. Pratiquée en groupe, elle offre également un moment de partage et de convivialité.",
+
     ageRange: "Adultes",
-    level: "Tous niveaux",
+
+    level: "Accessible à tous",
+
     benefits: [
-      "Endurance cardiovasculaire",
-      "Renforcement musculaire",
-      "Condition physique",
-      "Moment convivial",
+      "Entretenir sa condition physique",
+      "Améliorer l'endurance",
+      "Stimuler le système cardiovasculaire",
+      "Renforcer les muscles des jambes",
+      "Profiter d'une activité en plein air",
+      "Partager un moment convivial",
     ],
+
     image: {
       src: "/images/marche.webp",
-      alt: "Séance de marche active",
+      alt: "Groupe de personnes pratiquant la marche active en extérieur.",
     },
   },
+
+  // --------------------------------------------------
+  // 5. PILATES
+  // --------------------------------------------------
   {
     slug: "pilates",
     title: "Pilates",
+
     shortDescription:
-      "Un travail en douceur pour renforcer les muscles profonds et améliorer la posture.",
+      "Une méthode douce pour renforcer les muscles profonds, améliorer la posture et travailler la respiration.",
+
     description:
-      "Le cours de pilates s'adresse à tous les niveaux. Il propose des exercices contrôlés qui renforcent les muscles profonds et améliorent la posture, la souplesse et la respiration.",
+      "Le Pilates est une méthode de renforcement musculaire qui repose sur des mouvements contrôlés, la respiration et la concentration. Les exercices sollicitent particulièrement les muscles profonds afin d'améliorer la posture, la stabilité et la mobilité du corps. Cette pratique permet de travailler à son rythme et de développer une meilleure conscience corporelle.",
+
     ageRange: "Adultes",
-    level: "Tous niveaux",
+
+    level: "Accessible à tous",
+
     benefits: [
-      "Renforcement des muscles profonds",
-      "Amélioration de la posture",
-      "Souplesse",
-      "Concentration et respiration",
+      "Renforcer les muscles profonds",
+      "Améliorer la posture",
+      "Développer la stabilité et l'équilibre",
+      "Travailler la respiration",
+      "Améliorer la mobilité et la souplesse",
+      "Mieux contrôler ses mouvements",
     ],
+
     image: {
       src: "/images/pilates.webp",
-      alt: "Personne pratiquant le pilates sur un tapis",
+      alt: "Personne réalisant un exercice de Pilates sur un tapis.",
     },
   },
+
+  // --------------------------------------------------
+  // 6. CARDIO-TRAINING
+  // --------------------------------------------------
   {
     slug: "cardio-training",
-    title: "cardio training",
+    title: "Cardio-training",
+
     shortDescription:
-      "Une séance dynamique pour travailler le cardio, l'endurance et la condition physique.",
+      "Une séance dynamique pour améliorer son endurance et entretenir sa condition physique.",
+
     description:
-      "Le body cardio training propose des exercices variés et dynamiques pour améliorer l'endurance, la force et la condition physique générale. Chacun adapte l'intensité à son niveau.",
+      "Le cardio-training regroupe des exercices physiques destinés à solliciter le système cardiovasculaire et à améliorer l'endurance. Les séances permettent de travailler la condition physique générale, la coordination et la tonicité musculaire. Chacun peut adapter son effort en fonction de ses capacités et de sa progression.",
+
     ageRange: "Adultes",
-    level: "Tous niveaux",
+
+    level: "Adaptable selon les capacités",
+
     benefits: [
-      "Travail cardio-respiratoire",
-      "Renforcement musculaire",
-      "Condition physique générale",
-      "Intensité adaptable à chacun",
+      "Améliorer l'endurance cardiovasculaire",
+      "Entretenir sa condition physique",
+      "Développer la tonicité musculaire",
+      "Améliorer la coordination",
+      "Travailler à son rythme",
+      "Entretenir sa forme au quotidien",
     ],
+
     image: {
       src: "/images/circuit-training.webp",
-      alt: "Participants réalisant des exercices de cardio training",
+      alt: "Séance de cardio-training avec des exercices de remise en forme.",
     },
   },
+
+  // --------------------------------------------------
+  // 7. COACHING PERSONNALISÉ
+  // --------------------------------------------------
   {
     slug: "coaching",
-    title: "coaching",
+    title: "Coaching personnalisé",
+
     shortDescription:
-      "Une séance personnalisée pour répondre à vos besoins et objectifs.",
+      "Un accompagnement sportif personnalisé pour travailler ses objectifs et progresser à son rythme.",
+
     description:
-      "Le coaching personnalisé permet un suivi et des exercices adaptés à votre objectifs et votre niveaux.",
-    ageRange: "Adultes",
-    level: "Tous niveaux",
+      "Le coaching personnalisé est présenté en complément des activités de l'association. Il permet de découvrir un accompagnement sportif adapté aux objectifs, aux besoins et au niveau de chacun. Pour obtenir davantage d'informations sur les prestations proposées, consultez le site de LT Coaching.",
+
+    ageRange: "Selon les prestations proposées",
+
+    level: "Accompagnement personnalisé",
+
     benefits: [
-      "Intensité adaptable à chacun",
-      "Suivi personnalisé",
-      "Objectifs adaptés à vos besoins",
-      "Plan d'entraînement sur mesure",
-      "Motivation et accompagnement",
-      "Amélioration de la condition physique",
+      "Bénéficier d'un accompagnement individualisé",
+      "Définir des objectifs adaptés",
+      "Disposer d'un suivi personnalisé",
+      "Progresser à son rythme",
     ],
+
     image: {
       src: "/images/LTcoaching.webp",
-      alt: "Participants réalisant des exercices de coaching",
+      alt: "Illustration de l'activité de coaching sportif personnalisé LT Coaching.",
     },
+
     lien: "https://lt-coaching.vercel.app/",
-    titreLien: "LT Coaching",
+
+    titreLien: "Découvrir LT Coaching",
+
+    isExternal: true,
   },
 ];
 
 /**
  * Recherche une activité à partir de son slug.
+ *
+ * Exemple :
+ * getActivityBySlug("baby-gym")
+ *
+ * @param slug Identifiant de l'activité
+ * @returns L'activité correspondante ou undefined
  */
 export function getActivityBySlug(slug: string): Activity | undefined {
   return activities.find((activity) => activity.slug === slug);

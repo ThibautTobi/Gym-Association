@@ -29,9 +29,7 @@ export type ScheduleItem =
  * Lieu des cours.
  *
  * Le flyer indique "Dès 2027" pour la salle polyvalente
- * (Place Jehan Povremoyne, 76890 Val de Sâane). Au changement de lieu,
- * il suffira de modifier cette constante :
- *   const LOCATION = "Salle polyvalente";
+ * (Place Jehan Povremoyne, 76890 Val de Sâane).
  *
  * Adresse actuelle : 11 route de la Forge, 76890 St Pierre Bénouville.
  */

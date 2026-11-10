@@ -90,6 +90,9 @@ export const metadata: Metadata = {
   title: "Séance d'essai",
   description:
     "Demandez une séance d'essai auprès de Gym Val de Saâne et découvrez nos activités.",
+  alternates: {
+    canonical: "/essai",
+  },
 };
 
 export default function RegistrationPage() {
