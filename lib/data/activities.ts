@@ -111,8 +111,7 @@ export const activities: Activity[] = [
       "Découvrir les bases de la gymnastique et progresser à son rythme grâce à des exercices adaptés.",
 
     description:
-      "La gymnastique artistique permet de développer la souplesse, l'équilibre, la coordination et la maîtrise du corps. Les premières séances sont consacrées à la découverte des mouvements et des fondamentaux de la gymnastique. Les séances loisirs s'adressent ensuite aux enfants de plus de 6 ans souhaitant pratiquer une activité sportive dans un cadre ludique et adapté à leur niveau.",
-
+      "La gymnastique artistique permet de développer la souplesse, l'équilibre, la coordination et la maîtrise du corps. Les premières séances sont consacrées à la découverte des mouvements et des fondamentaux de la gymnastique. Les séances de loisirs s'adressent ensuite aux enfants à partir de 5 ans souhaitant pratiquer une activité sportive dans un cadre ludique et adapté à leur niveau.",
     ageRange: "Dès 5 ans",
 
     level: "Découverte et loisirs",
@@ -143,7 +142,7 @@ export const activities: Activity[] = [
       "Une discipline dynamique associant mouvements gymniques, coordination, rythme et endurance.",
 
     description:
-      "La gymnastique aérobic est une discipline sportive qui associe des mouvements gymniques, des enchaînements dynamiques et un travail sur le rythme. Elle permet de développer l'endurance, la coordination, la tonicité et la maîtrise des mouvements. Les séances permettent de progresser individuellement et collectivement dans une ambiance sportive et motivante.",
+      "La gymnastique aérobic est une discipline sportive qui associe des mouvements gymniques, des enchaînements dynamiques et un travail sur le rythme. Elle contribue au développement de l'endurance, de la coordination, de la tonicité et de la maîtrise des mouvements. Les séances favorisent une progression individuelle et collective dans une ambiance sportive et motivante.",
 
     ageRange: "Tous publics",
 
@@ -271,8 +270,7 @@ export const activities: Activity[] = [
       "Un accompagnement sportif personnalisé pour travailler ses objectifs et progresser à son rythme.",
 
     description:
-      "Le coaching personnalisé est présenté en complément des activités de l'association. Il permet de découvrir un accompagnement sportif adapté aux objectifs, aux besoins et au niveau de chacun. Pour obtenir davantage d'informations sur les prestations proposées, consultez le site de LT Coaching.",
-
+      "Le coaching personnalisé est présenté en complément des activités de l'association. Cette prestation est proposée par LT Coaching, un organisme externe. Elle permet de découvrir un accompagnement sportif adapté aux objectifs, aux besoins et au niveau de chacun. Pour obtenir davantage d'informations, consultez le site de LT Coaching.",
     ageRange: "Selon les prestations proposées",
 
     level: "Accompagnement personnalisé",

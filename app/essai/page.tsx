@@ -1,103 +1,155 @@
-// import type { Metadata } from "next";
-// import Link from "next/link";
-
-// import PageIntro from "@/components/sections/PageIntro";
-
-// export const metadata: Metadata = {
-//   title: "Inscription",
-//   description:
-//     "Découvrez les modalités pour rejoindre Gym'Association et pratiquer la gymnastique.",
-// };
-
-// export default function RegistrationPage() {
-//   return (
-//     <>
-//       <PageIntro
-//         eyebrow="Nous rejoindre"
-//         title="Inscription"
-//         description="Retrouvez les informations nécessaires pour découvrir nos activités et rejoindre l'association."
-//       />
-
-//       <section className="py-16 sm:py-20">
-//         <div className="mx-auto grid max-w-5xl gap-6 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
-//           <article className="rounded-xl border bg-card p-6 shadow-sm">
-//             <h2 className="text-xl font-semibold">
-//               1. Choisir une activité
-//             </h2>
-
-//             <p className="mt-3 leading-7 text-muted-foreground">
-//               Consultez nos activités et identifiez le groupe correspondant
-//               à votre âge et votre niveau.
-//             </p>
-
-//             <Link
-//               href="/activites"
-//               className="mt-6 inline-flex min-h-11 items-center font-medium text-primary hover:underline"
-//             >
-//               Voir les activités →
-//             </Link>
-//           </article>
-
-//           <article className="rounded-xl border bg-card p-6 shadow-sm">
-//             <h2 className="text-xl font-semibold">
-//               2. Consulter les horaires
-//             </h2>
-
-//             <p className="mt-3 leading-7 text-muted-foreground">
-//               Consultez les créneaux disponibles et les informations
-//               pratiques avant de nous contacter.
-//             </p>
-
-//             <Link
-//               href="/horaires"
-//               className="mt-6 inline-flex min-h-11 items-center font-medium text-primary hover:underline"
-//             >
-//               Voir les horaires →
-//             </Link>
-//           </article>
-//         </div>
-
-//         <div className="mx-auto mt-10 max-w-3xl px-4 text-center sm:px-6 lg:px-8">
-//           <div className="rounded-2xl bg-muted p-8">
-//             <h2 className="text-2xl font-bold">
-//               Une question avant de vous inscrire ?
-//             </h2>
-
-//             <p className="mt-4 text-muted-foreground">
-//               Notre équipe est disponible pour vous renseigner sur les
-//               activités, les horaires et les modalités d&apos;inscription.
-//             </p>
-
-//             <Link
-//               href="/contact"
-//               className="mt-6 inline-flex min-h-11 items-center rounded-md bg-primary px-6 py-3 font-semibold text-primary-foreground hover:opacity-90"
-//             >
-//               Nous contacter
-//             </Link>
-//           </div>
-//         </div>
-//       </section>
-//     </>
-//   );
-// }
-
 import type { Metadata } from "next";
 
 import PageIntro from "@/components/sections/PageIntro";
 import RegistrationForm from "@/components/registration/RegistrationForm";
 
+import {
+  CURRENT_SEASON,
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_DIMENSIONS,
+  SITE_URL,
+} from "@/lib/site";
+
+/**
+ * Emplacement : app/essai/page.tsx
+ *
+ * Page de demande de séance d'essai.
+ */
+
+// ============================================================
+// CONFIGURATION SEO
+// ============================================================
+
+// URL canonique complète de la page.
+const PAGE_URL = `${SITE_URL}/essai`;
+
+// Titre utilisé pour les métadonnées et les données structurées.
+const PAGE_TITLE = `Séance d'essai | ${SITE_NAME}`;
+
+// Description SEO de la page.
+const PAGE_DESCRIPTION = `Demandez une séance d'essai auprès de ${SITE_NAME} et découvrez les activités proposées pour la saison ${CURRENT_SEASON.label}. Une première étape pour trouver l'activité qui vous correspond.`;
+
+// ============================================================
+// DONNÉES STRUCTURÉES JSON-LD
+// ============================================================
+
+/**
+ * Décrit la page de demande de séance d'essai
+ * et son fil d'Ariane.
+ *
+ * Les entités SportsOrganization et WebSite sont déjà déclarées
+ * globalement dans app/layout.tsx.
+ *
+ * Nous ne les dupliquons donc pas ici.
+ */
+const registrationJsonLd = {
+  "@context": "https://schema.org",
+
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${PAGE_URL}#webpage`,
+      url: PAGE_URL,
+      name: PAGE_TITLE,
+      description: PAGE_DESCRIPTION,
+      inLanguage: "fr-FR",
+
+      // Relation avec le site déclaré dans app/layout.tsx.
+      isPartOf: {
+        "@id": `${SITE_URL}/#website`,
+      },
+
+      // Relation avec l'association déclarée globalement.
+      about: {
+        "@id": `${SITE_URL}/#organization`,
+      },
+
+      // Référence au fil d'Ariane ci-dessous.
+      breadcrumb: {
+        "@id": `${PAGE_URL}#breadcrumb`,
+      },
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${PAGE_URL}#breadcrumb`,
+
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: SITE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Séance d'essai",
+          item: PAGE_URL,
+        },
+      ],
+    },
+  ],
+};
+
+// ============================================================
+// MÉTADONNÉES NEXT.JS
+// ============================================================
+
 export const metadata: Metadata = {
   title: "Séance d'essai",
-  description:
-    "Demandez une séance d'essai auprès de Gym Val de Saâne et découvrez nos activités.",
+  description: PAGE_DESCRIPTION,
+
   alternates: {
     canonical: "/essai",
   },
+
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: PAGE_URL,
+    siteName: SITE_NAME,
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+        width: SITE_OG_IMAGE_DIMENSIONS.width,
+        height: SITE_OG_IMAGE_DIMENSIONS.height,
+        alt: SITE_OG_IMAGE_ALT,
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+        alt: SITE_OG_IMAGE_ALT,
+      },
+    ],
+  },
 };
 
+/**
+ * Page de demande de séance d'essai.
+ */
 export default function RegistrationPage() {
   return (
     <>
+      {/* Données structurées JSON-LD de la page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(registrationJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+
       <PageIntro
         eyebrow="Séance d'essai"
         title="Découvrir Gym Val de Saâne"
@@ -114,15 +166,16 @@ export default function RegistrationPage() {
               id="registration-form-title"
               className="text-2xl font-bold sm:text-3xl"
             >
-              Demander une séance d&apos;essai
+              Demander une séance d’essai
             </h2>
 
             <p className="mt-3 max-w-2xl text-muted-foreground">
               Cette demande nous permet de mieux connaître vos besoins et de
-              vous orienter vers l&apos;activité et le créneau les plus adaptés.
+              vous orienter vers l’activité et le créneau les plus adaptés.
             </p>
           </div>
 
+          {/* Formulaire de demande de séance d'essai */}
           <RegistrationForm />
         </div>
       </section>

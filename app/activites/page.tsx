@@ -19,13 +19,17 @@ import {
  * Les cartes sont générées depuis lib/data/activities.ts.
  */
 
+const PAGE_TITLE = `Nos activités | ${SITE_NAME}`;
+
+const PAGE_DESCRIPTION =
+  "Découvrez les activités de Gymnastique Val de Saâne : Baby Gym, gymnastique artistique, gymnastique aérobic, marche active, Pilates et cardio-training. Retrouvez également notre présentation du coaching sportif.";
+
 /**
  * Métadonnées SEO de la page des activités.
  */
 export const metadata: Metadata = {
   title: "Nos activités",
-  description:
-    "Découvrez les activités de Gymnastique Val de Saâne : Baby Gym, gymnastique artistique, aérobic sportive, marche active, Pilates et autres pratiques sportives.",
+  description: PAGE_DESCRIPTION,
 
   alternates: {
     canonical: "/activites",
@@ -36,9 +40,8 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: `${SITE_URL}/activites`,
     siteName: SITE_NAME,
-    title: `Nos activités | ${SITE_NAME}`,
-    description:
-      "Découvrez les activités sportives proposées par Gymnastique Val de Saâne et trouvez la pratique adaptée à vos envies.",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
     images: [
       {
         url: SITE_OG_IMAGE,
@@ -51,9 +54,8 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: `Nos activités | ${SITE_NAME}`,
-    description:
-      "Découvrez les activités sportives de Gymnastique Val de Saâne.",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
     images: [
       {
         url: SITE_OG_IMAGE,
@@ -79,36 +81,26 @@ function ActivitiesStructuredData() {
         "@type": "WebPage",
         "@id": `${pageUrl}#webpage`,
         url: pageUrl,
-        name: `Nos activités | ${SITE_NAME}`,
-        description:
-          "Présentation des activités sportives proposées par Gymnastique Val de Saâne.",
+        name: PAGE_TITLE,
+        description: PAGE_DESCRIPTION,
+
+        // Langue principale de la page.
+        inLanguage: "fr-FR",
+
+        // Site internet auquel appartient cette page.
         isPartOf: {
-          "@type": "WebSite",
           "@id": `${SITE_URL}/#website`,
-          url: SITE_URL,
-          name: SITE_NAME,
         },
+
+        // Association présentée par cette page.
+        about: {
+          "@id": `${SITE_URL}/#organization`,
+        },
+
+        // Fil d'Ariane associé à cette page.
         breadcrumb: {
           "@id": `${pageUrl}#breadcrumb`,
         },
-      },
-      {
-        "@type": "BreadcrumbList",
-        "@id": `${pageUrl}#breadcrumb`,
-        itemListElement: [
-          {
-            "@type": "ListItem",
-            position: 1,
-            name: "Accueil",
-            item: SITE_URL,
-          },
-          {
-            "@type": "ListItem",
-            position: 2,
-            name: "Activités",
-            item: pageUrl,
-          },
-        ],
       },
     ],
   };

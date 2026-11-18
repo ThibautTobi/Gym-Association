@@ -1,45 +1,123 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 
 import PageIntro from "@/components/sections/PageIntro";
 
+import {
+  SITE_NAME,
+  SITE_URL,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_DIMENSIONS,
+} from "@/lib/site";
+
 /**
  * Métadonnées SEO des mentions légales.
+ *
+ * Cette page reste accessible aux moteurs de recherche.
+ * Les informations juridiques doivent être confirmées
+ * par l'association avant publication définitive.
  */
+
+const PAGE_TITLE = `Mentions légales | ${SITE_NAME}`;
+
+const PAGE_DESCRIPTION = `Consultez les mentions légales de ${SITE_NAME} : informations sur l'éditeur du site, la publication, l'hébergement et la propriété intellectuelle.`;
+
+/**
+ * URL canonique de la page des mentions légales.
+ */
+const PAGE_URL = `${SITE_URL}/mentions-legales`;
+
+/**
+ * Données structurées JSON-LD des mentions légales.
+ *
+ * WebPage décrit la page.
+ * BreadcrumbList décrit son emplacement dans le site.
+ *
+ * Les entités SportsOrganization et WebSite sont déjà
+ * déclarées globalement dans app/layout.tsx.
+ */
+const legalNoticeJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${PAGE_URL}#webpage`,
+      url: PAGE_URL,
+      name: PAGE_TITLE,
+      description: PAGE_DESCRIPTION,
+      inLanguage: "fr-FR",
+      isPartOf: {
+        "@id": `${SITE_URL}/#website`,
+      },
+      about: {
+        "@id": `${SITE_URL}/#organization`,
+      },
+      breadcrumb: {
+        "@id": `${PAGE_URL}#breadcrumb`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${PAGE_URL}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: SITE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Mentions légales",
+          item: PAGE_URL,
+        },
+      ],
+    },
+  ],
+};
+
 export const metadata: Metadata = {
   title: "Mentions légales",
-  description:
-    "Consultez les mentions légales de Gymnastique Val de Saâne : éditeur du site, responsable de publication, hébergement et propriété intellectuelle.",
+  description: PAGE_DESCRIPTION,
+
   alternates: {
     canonical: "/mentions-legales",
   },
+
   robots: {
     index: true,
     follow: true,
   },
+
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    title: "Mentions légales | Gymnastique Val de Saâne",
-    description:
-      "Retrouvez les informations légales relatives au site de Gymnastique Val de Saâne.",
-    url: "/mentions-legales",
-    siteName: "Gymnastique Val de Saâne",
+    url: PAGE_URL,
+    siteName: SITE_NAME,
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
     images: [
       {
-        url: "/images/og/og-gymnastique-val-de-saane.webp",
-        width: 1200,
-        height: 630,
-        alt: "Gymnastique Val de Saâne",
+        url: SITE_OG_IMAGE,
+        width: SITE_OG_IMAGE_DIMENSIONS.width,
+        height: SITE_OG_IMAGE_DIMENSIONS.height,
+        alt: SITE_OG_IMAGE_ALT,
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Mentions légales | Gymnastique Val de Saâne",
-    description:
-      "Informations légales relatives au site de Gymnastique Val de Saâne.",
-    images: ["/images/og/og-gymnastique-val-de-saane.webp"],
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+        alt: SITE_OG_IMAGE_ALT,
+      },
+    ],
   },
 };
 
@@ -55,23 +133,30 @@ export const metadata: Metadata = {
  */
 const LEGAL_INFORMATION = {
   associationName: "Gymnastique Val de Saâne",
-  legalForm: "[Forme juridique de l'association à compléter]",
-  registeredAddress: "[Adresse complète du siège social à compléter]",
-  rnaNumber: "[Numéro RNA à compléter si applicable]",
-  sirenNumber: "[Numéro SIREN à compléter si applicable]",
-  siretNumber: "[Numéro SIRET à compléter si applicable]",
-  email: "[Adresse e-mail de contact à confirmer]",
-  phone: "[Numéro de téléphone à compléter si applicable]",
-  publicationDirector: "[Nom et prénom du directeur de publication]",
-  hostingCompany: "Vercel Inc. [Dénomination à confirmer]",
-  hostingAddress: "[Adresse officielle de l'hébergeur à vérifier]",
-  hostingPhone: "[Coordonnées téléphoniques de l'hébergeur à vérifier]",
-  lastUpdated: "[Date de dernière mise à jour à compléter]",
+  // legalForm: "[Forme juridique de l'association à compléter]",
+  // registeredAddress: "[Adresse complète du siège social à compléter]",
+  // rnaNumber: "[Numéro RNA à compléter si applicable]",
+  // sirenNumber: "[Numéro SIREN à compléter si applicable]",
+  // siretNumber: "[Numéro SIRET à compléter si applicable]",
+  // email: "[Adresse e-mail de contact à confirmer]",
+  // phone: "[Numéro de téléphone à compléter si applicable]",
+  // publicationDirector: "[Nom et prénom du directeur de publication]",
+  // hostingCompany: "Vercel Inc. [Dénomination à confirmer]",
+  // hostingAddress: "[Adresse officielle de l'hébergeur à vérifier]",
+  // hostingPhone: "[Coordonnées téléphoniques de l'hébergeur à vérifier]",
+  // lastUpdated: "[Date de dernière mise à jour à compléter]",
 };
 
 export default function LegalNoticePage() {
   return (
     <>
+      {/* Données structurées JSON-LD des mentions légales */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(legalNoticeJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <PageIntro
         eyebrow="Informations légales"
         title="Mentions légales"
@@ -90,26 +175,25 @@ export default function LegalNoticePage() {
             </h2>
 
             <p className="mt-4 leading-7 text-muted-foreground">
-              Le présent site internet est édité par l&lsquo;association
-              suivante :
+              Le présent site internet est édité par l’association suivante :
             </p>
 
             <ul className="mt-4 list-inside list-disc space-y-2 leading-7 text-muted-foreground">
               <li>
-                Nom de l&lsquo;association : {LEGAL_INFORMATION.associationName}
+                Nom de l&rsquo;association : {LEGAL_INFORMATION.associationName}
               </li>
-              <li>Forme juridique : {LEGAL_INFORMATION.legalForm}</li>
+              {/* <li>Forme juridique : {LEGAL_INFORMATION.legalForm}</li>
               <li>Siège social : {LEGAL_INFORMATION.registeredAddress}</li>
               <li>Numéro RNA : {LEGAL_INFORMATION.rnaNumber}</li>
               <li>SIREN : {LEGAL_INFORMATION.sirenNumber}</li>
               <li>SIRET : {LEGAL_INFORMATION.siretNumber}</li>
               <li>Adresse e-mail : {LEGAL_INFORMATION.email}</li>
-              <li>Téléphone : {LEGAL_INFORMATION.phone}</li>
+              <li>Téléphone : {LEGAL_INFORMATION.phone}</li> */}
             </ul>
 
             <p className="mt-4 leading-7 text-muted-foreground">
-              Les informations relatives à l&lsquo;identité et à la situation
-              administrative de l&lsquo;association doivent être vérifiées avant
+              Les informations relatives à l&rsquo;identité et à la situation
+              administrative de l&rsquo;association doivent être vérifiées avant
               la publication définitive de cette page.
             </p>
           </section>
@@ -124,13 +208,13 @@ export default function LegalNoticePage() {
               Le responsable de la publication du site est :
             </p>
 
-            <p className="mt-3 leading-7 text-muted-foreground">
+            {/* <p className="mt-3 leading-7 text-muted-foreground">
               {LEGAL_INFORMATION.publicationDirector}
-            </p>
+            </p> */}
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Cette information doit être confirmée par le représentant de
-              l&lsquo;association avant la mise en ligne définitive des mentions
+              l&rsquo;association avant la mise en ligne définitive des mentions
               légales.
             </p>
           </section>
@@ -143,15 +227,15 @@ export default function LegalNoticePage() {
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Le site est déployé sur la plateforme Vercel. Les coordonnées
-              juridiques et les informations de contact de l&lsquo;entité qui
-              assure effectivement l&lsquo;hébergement doivent être vérifiées
+              juridiques et les informations de contact de l&rsquo;entité qui
+              assure effectivement l&rsquo;hébergement doivent être vérifiées
               avant publication.
             </p>
 
             <ul className="mt-4 list-inside list-disc space-y-2 leading-7 text-muted-foreground">
-              <li>Hébergeur : {LEGAL_INFORMATION.hostingCompany}</li>
+              {/* <li>Hébergeur : {LEGAL_INFORMATION.hostingCompany}</li>
               <li>Adresse : {LEGAL_INFORMATION.hostingAddress}</li>
-              <li>Téléphone : {LEGAL_INFORMATION.hostingPhone}</li>
+              <li>Téléphone : {LEGAL_INFORMATION.hostingPhone}</li> */}
               <li>
                 Site officiel :{" "}
                 <a
@@ -176,7 +260,7 @@ export default function LegalNoticePage() {
               Les contenus présents sur ce site, notamment les textes, les
               éléments graphiques, les photographies, les illustrations, les
               logos et les éléments de présentation, sont susceptibles
-              d&lsquo;être protégés par les dispositions applicables en matière
+              d&rsquo;être protégés par les dispositions applicables en matière
               de propriété intellectuelle.
             </p>
 
@@ -202,7 +286,7 @@ export default function LegalNoticePage() {
             </h2>
 
             <p className="mt-4 leading-7 text-muted-foreground">
-              L&lsquo;association s&lsquo;efforce de publier des informations
+              L&rsquo;association s&rsquo;efforce de publier des informations
               exactes et régulièrement mises à jour concernant ses activités,
               ses actualités et les informations pratiques communiquées sur le
               site.
@@ -211,13 +295,13 @@ export default function LegalNoticePage() {
             <p className="mt-4 leading-7 text-muted-foreground">
               Malgré le soin apporté à la mise à jour des contenus, des erreurs
               ou omissions peuvent subsister. Les visiteurs sont invités à
-              contacter l&lsquo;association pour signaler une information qui
+              contacter l&rsquo;association pour signaler une information qui
               leur semble inexacte ou obsolète.
             </p>
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Les liens vers des sites internet externes sont proposés à titre
-              informatif. L&lsquo;association ne maîtrise pas nécessairement les
+              informatif. L&rsquo;association ne maîtrise pas nécessairement les
               contenus, les disponibilités ou les pratiques de confidentialité
               de ces services tiers.
             </p>
@@ -231,7 +315,7 @@ export default function LegalNoticePage() {
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Le site propose notamment un formulaire de contact et un
-              formulaire de demande de séance d&lsquo;essai. Les informations
+              formulaire de demande de séance d&rsquo;essai. Les informations
               relatives aux données collectées, à leur utilisation, à leur
               conservation et aux droits des personnes sont détaillées dans la
               politique de confidentialité.
@@ -253,14 +337,14 @@ export default function LegalNoticePage() {
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Le site peut proposer des liens vers des plateformes ou des sites
-              tiers afin de faciliter l&lsquo;accès à des informations ou
+              tiers afin de faciliter l&rsquo;accès à des informations ou
               services complémentaires.
             </p>
 
             <p className="mt-4 leading-7 text-muted-foreground">
-              L&lsquo;ouverture de ces liens entraîne la consultation de
-              services indépendants du site de l&lsquo;association. Il est
-              recommandé de consulter les conditions d&lsquo;utilisation et les
+              L&rsquo;ouverture de ces liens entraîne la consultation de
+              services indépendants du site de l&rsquo;association. Il est
+              recommandé de consulter les conditions d&rsquo;utilisation et les
               politiques de confidentialité propres à ces services.
             </p>
           </section>
@@ -273,19 +357,19 @@ export default function LegalNoticePage() {
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Les présentes mentions légales peuvent être modifiées afin de
-              tenir compte des évolutions de l&lsquo;association, du site
+              tenir compte des évolutions de l&rsquo;association, du site
               internet ou de la réglementation applicable.
             </p>
 
-            <p className="mt-4 leading-7 text-muted-foreground">
+            {/* <p className="mt-4 leading-7 text-muted-foreground">
               Dernière mise à jour : {LEGAL_INFORMATION.lastUpdated}.
-            </p>
+            </p> */}
           </section>
 
           {/* Contact */}
           <section aria-labelledby="contact-title" className="border-t pt-8">
             <h2 id="contact-title" className="text-xl font-semibold">
-              Contacter l&lsquo;association
+              Contacter l&rsquo;association
             </h2>
 
             <p className="mt-3 leading-7 text-muted-foreground">

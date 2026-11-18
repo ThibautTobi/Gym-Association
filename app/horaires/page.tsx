@@ -1,9 +1,17 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 
 import PageIntro from "@/components/sections/PageIntro";
 
 import { schedules, type ScheduleItem } from "@/lib/data/schedules";
-import { CURRENT_SEASON, CURRENT_VENUE, SITE_NAME } from "@/lib/site";
+import {
+  CURRENT_SEASON,
+  CURRENT_VENUE,
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_DIMENSIONS,
+  SITE_URL,
+} from "@/lib/site";
 
 /**
  * Emplacement : app/horaires/page.tsx
@@ -14,12 +22,120 @@ import { CURRENT_SEASON, CURRENT_VENUE, SITE_NAME } from "@/lib/site";
  * Le lieu et la saison proviennent de lib/site.ts.
  */
 
+// ============================================================
+// CONFIGURATION SEO
+// ============================================================
+
+// URL canonique complète de la page.
+const PAGE_URL = `${SITE_URL}/horaires`;
+
+// Titre utilisé pour les métadonnées et les données structurées.
+const PAGE_TITLE = `Horaires des cours | ${SITE_NAME}`;
+
+// Description SEO de la page.
+const PAGE_DESCRIPTION = `Consultez les horaires des cours de Baby Gym, gymnastique artistique, gymnastique aérobic, marche active, Pilates et cardio-training de ${SITE_NAME} pour la saison ${CURRENT_SEASON.label}.`;
+
+// ============================================================
+// DONNÉES STRUCTURÉES JSON-LD
+// ============================================================
+
+/**
+ * Décrit la page des horaires et son fil d'Ariane.
+ *
+ * Les entités SportsOrganization et WebSite sont déjà déclarées
+ * globalement dans app/layout.tsx.
+ *
+ * Nous ne les dupliquons donc pas ici.
+ */
+const schedulesJsonLd = {
+  "@context": "https://schema.org",
+
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${PAGE_URL}#webpage`,
+      url: PAGE_URL,
+      name: PAGE_TITLE,
+      description: PAGE_DESCRIPTION,
+      inLanguage: "fr-FR",
+
+      // Relation avec le site déclaré dans app/layout.tsx.
+      isPartOf: {
+        "@id": `${SITE_URL}/#website`,
+      },
+
+      // Relation avec l'association déclarée globalement.
+      about: {
+        "@id": `${SITE_URL}/#organization`,
+      },
+
+      // Référence au fil d'Ariane ci-dessous.
+      breadcrumb: {
+        "@id": `${PAGE_URL}#breadcrumb`,
+      },
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${PAGE_URL}#breadcrumb`,
+
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: SITE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Horaires",
+          item: PAGE_URL,
+        },
+      ],
+    },
+  ],
+};
+
+// ============================================================
+// MÉTADONNÉES NEXT.JS
+// ============================================================
+
 export const metadata: Metadata = {
   title: "Horaires des cours",
-  description: `Consultez les horaires des cours de Baby Gym, gymnastique artistique, aérobic sportive, marche active, Pilates et cardio-training de ${SITE_NAME} pour la saison ${CURRENT_SEASON.label}.`,
+  description: PAGE_DESCRIPTION,
 
   alternates: {
     canonical: "/horaires",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: PAGE_URL,
+    siteName: SITE_NAME,
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+        width: SITE_OG_IMAGE_DIMENSIONS.width,
+        height: SITE_OG_IMAGE_DIMENSIONS.height,
+        alt: SITE_OG_IMAGE_ALT,
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+        alt: SITE_OG_IMAGE_ALT,
+      },
+    ],
   },
 };
 
@@ -65,6 +181,14 @@ function createDayId(day: string): string {
 export default function SchedulesPage() {
   return (
     <>
+      {/* Données structurées JSON-LD de la page */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(schedulesJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+
       <PageIntro
         eyebrow="Informations pratiques"
         title="Horaires des cours"
@@ -84,7 +208,7 @@ export default function SchedulesPage() {
             </h2>
 
             <p className="mt-3 max-w-2xl text-muted-foreground">
-              Retrouvez les activités, les horaires et les tranches d&lsquo;âge.
+              Retrouvez les activités, les horaires et les tranches d&rsquo;âge.
               Les pauses entre les cours sont indiquées directement dans le
               planning.
             </p>
@@ -117,7 +241,7 @@ export default function SchedulesPage() {
               <h3 className="font-semibold">Les horaires arrivent bientôt</h3>
 
               <p className="mt-2 text-sm text-muted-foreground">
-                Les créneaux des activités seront publiés dès qu&lsquo;ils
+                Les créneaux des activités seront publiés dès qu&rsquo;ils
                 seront disponibles.
               </p>
             </div>
