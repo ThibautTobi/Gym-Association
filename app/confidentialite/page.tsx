@@ -1,49 +1,120 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 
 import PageIntro from "@/components/sections/PageIntro";
 
+import {
+  SITE_NAME,
+  SITE_URL,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_DIMENSIONS,
+} from "@/lib/site";
+
 /**
  * Métadonnées SEO de la politique de confidentialité.
  *
- * Cette page est volontairement indexable :
- * elle apporte une information utile aux visiteurs et aux moteurs
- * de recherche sur la gestion des données personnelles du site.
+ * Cette page est indexable et présente les informations
+ * relatives à la gestion des données personnelles du site.
  */
+
+const PAGE_TITLE = `Politique de confidentialité | ${SITE_NAME}`;
+
+const PAGE_DESCRIPTION = `Consultez la politique de confidentialité de ${SITE_NAME} : informations sur les données personnelles, les formulaires de contact, leur utilisation et les droits des utilisateurs.`;
+
+/**
+ * URL canonique de la page.
+ */
+const PAGE_URL = `${SITE_URL}/confidentialite`;
+
+/**
+ * Données structurées JSON-LD de la politique de confidentialité.
+ */
+const privacyJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${PAGE_URL}#webpage`,
+      url: PAGE_URL,
+      name: PAGE_TITLE,
+      description: PAGE_DESCRIPTION,
+      inLanguage: "fr-FR",
+
+      isPartOf: {
+        "@id": `${SITE_URL}/#website`,
+      },
+
+      about: {
+        "@id": `${SITE_URL}/#organization`,
+      },
+
+      breadcrumb: {
+        "@id": `${PAGE_URL}#breadcrumb`,
+      },
+    },
+
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${PAGE_URL}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: SITE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Politique de confidentialité",
+          item: PAGE_URL,
+        },
+      ],
+    },
+  ],
+};
+
 export const metadata: Metadata = {
   title: "Politique de confidentialité",
-  description:
-    "Consultez la politique de confidentialité de Gymnastique Val de Saâne : données collectées, formulaires, droits des utilisateurs et protection des données.",
+  description: PAGE_DESCRIPTION,
+
   alternates: {
     canonical: "/confidentialite",
   },
+
   robots: {
     index: true,
     follow: true,
   },
+
   openGraph: {
     type: "website",
     locale: "fr_FR",
-    title: "Politique de confidentialité | Gymnastique Val de Saâne",
-    description:
-      "Informations sur la collecte, l'utilisation et la protection des données personnelles sur le site de Gymnastique Val de Saâne.",
-    url: "/confidentialite",
-    siteName: "Gymnastique Val de Saâne",
+    url: PAGE_URL,
+    siteName: SITE_NAME,
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
     images: [
       {
-        url: "/images/og/og-gymnastique-val-de-saane.webp",
-        width: 1200,
-        height: 630,
-        alt: "Gymnastique Val de Saâne",
+        url: SITE_OG_IMAGE,
+        width: SITE_OG_IMAGE_DIMENSIONS.width,
+        height: SITE_OG_IMAGE_DIMENSIONS.height,
+        alt: SITE_OG_IMAGE_ALT,
       },
     ],
   },
+
   twitter: {
     card: "summary_large_image",
-    title: "Politique de confidentialité | Gymnastique Val de Saâne",
-    description:
-      "Informations sur la gestion des données personnelles du site Gymnastique Val de Saâne.",
-    images: ["/images/og/og-gymnastique-val-de-saane.webp"],
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+        alt: SITE_OG_IMAGE_ALT,
+      },
+    ],
   },
 };
 
@@ -55,14 +126,21 @@ export const metadata: Metadata = {
  */
 const PRIVACY_CONTACT = {
   associationName: "Gymnastique Val de Saâne",
-  postalAddress: "[Adresse du siège social à compléter]",
-  email: "[Adresse e-mail de contact à confirmer]",
-  lastUpdated: "[Date de dernière mise à jour à compléter]",
+  postalAddress: "9 passage Saint-Wandrille, 76890 Val-de-Saâne",
+  email: "gymnastique.vds@gmail.com",
+  lastUpdated: "Novembre 2026",
 };
 
 export default function PrivacyPage() {
   return (
     <>
+      {/* Données structurées JSON-LD de la politique de confidentialité */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(privacyJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
       <PageIntro
         eyebrow="Vie privée et données personnelles"
         title="Politique de confidentialité"
@@ -82,7 +160,7 @@ export default function PrivacyPage() {
 
             <p className="mt-4 leading-7 text-muted-foreground">
               La présente politique de confidentialité explique comment
-              l&lsquo;association {PRIVACY_CONTACT.associationName} traite les
+              l&rsquo;association {PRIVACY_CONTACT.associationName} traite les
               données personnelles communiquées par les visiteurs du site
               internet.
             </p>
@@ -90,11 +168,11 @@ export default function PrivacyPage() {
             <p className="mt-4 leading-7 text-muted-foreground">
               Elle concerne notamment les informations transmises au moyen du
               formulaire de contact et du formulaire de demande de séance
-              d&lsquo;essai.
+              d&rsquo;essai.
             </p>
 
             <p className="mt-4 leading-7 text-muted-foreground">
-              L&lsquo;association s&lsquo;engage à limiter la collecte aux
+              L&rsquo;association s&rsquo;engage à limiter la collecte aux
               informations nécessaires au traitement des demandes et à respecter
               la réglementation applicable en matière de protection des données
               personnelles, notamment le règlement général sur la protection des
@@ -149,11 +227,11 @@ export default function PrivacyPage() {
             </ul>
 
             <h3 className="mt-6 text-lg font-semibold">
-              2.2. Formulaire de demande de séance d&lsquo;essai
+              2.2. Formulaire de demande de séance d&rsquo;essai
             </h3>
 
             <p className="mt-3 leading-7 text-muted-foreground">
-              Pour traiter une demande de séance d&lsquo;essai, le formulaire
+              Pour traiter une demande de séance d&rsquo;essai, le formulaire
               recueille les informations suivantes :
             </p>
 
@@ -171,7 +249,7 @@ export default function PrivacyPage() {
             <p className="mt-4 leading-7 text-muted-foreground">
               La date de naissance peut concerner une personne mineure. Lorsque
               la demande concerne un enfant, il appartient à la personne qui
-              effectue la démarche de s&lsquo;assurer qu&lsquo;elle est
+              effectue la démarche de s&rsquo;assurer qu&rsquo;elle est
               autorisée à transmettre ces informations.
             </p>
 
@@ -190,7 +268,7 @@ export default function PrivacyPage() {
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Les données personnelles sont utilisées uniquement pour les
-              besoins liés aux demandes adressées à l&lsquo;association,
+              besoins liés aux demandes adressées à l&rsquo;association,
               notamment pour :
             </p>
 
@@ -201,12 +279,12 @@ export default function PrivacyPage() {
               <li>Répondre aux demandes de renseignements ;</li>
               <li>
                 Recontacter les personnes intéressées par une séance
-                d&lsquo;essai ;
+                d&rsquo;essai ;
               </li>
-              <li>Identifier l&lsquo;activité et le niveau souhaités ;</li>
+              <li>Identifier l&rsquo;activité et le niveau souhaités ;</li>
               <li>
                 Organiser et assurer le suivi des demandes de séance
-                d&lsquo;essai ;
+                d&rsquo;essai ;
               </li>
               <li>Assurer la sécurité et le bon fonctionnement du site.</li>
             </ul>
@@ -230,12 +308,12 @@ export default function PrivacyPage() {
             </p>
 
             <p className="mt-4 leading-7 text-muted-foreground">
-              Pour les demandes de séance d&lsquo;essai, le traitement peut
+              Pour les demandes de séance d&rsquo;essai, le traitement peut
               notamment être nécessaire à la réalisation de démarches
               précontractuelles effectuées à la demande de la personne
               concernée. Pour les messages de contact, la base juridique
               applicable doit être précisée selon la nature de la demande et
-              l&lsquo;utilisation qui en est faite.
+              l&rsquo;utilisation qui en est faite.
             </p>
 
             <p className="mt-4 leading-7 text-muted-foreground">
@@ -260,7 +338,7 @@ export default function PrivacyPage() {
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Les données sont destinées aux personnes habilitées de
-              l&lsquo;association qui en ont besoin pour répondre aux demandes
+              l&rsquo;association qui en ont besoin pour répondre aux demandes
               et assurer leur suivi.
             </p>
 
@@ -292,8 +370,8 @@ export default function PrivacyPage() {
             <h3 className="mt-6 text-lg font-semibold">5.2. Hébergement</h3>
 
             <p className="mt-3 leading-7 text-muted-foreground">
-              Le site est déployé à l&lsquo;aide de la plateforme Vercel. Des
-              données techniques nécessaires à l&lsquo;hébergement, à la
+              Le site est déployé à l&rsquo;aide de la plateforme Vercel. Des
+              données techniques nécessaires à l&rsquo;hébergement, à la
               sécurité et au fonctionnement du site peuvent être traitées par ce
               prestataire.
             </p>
@@ -311,7 +389,7 @@ export default function PrivacyPage() {
 
             <p className="mt-4 rounded-lg border bg-muted p-4 text-sm leading-6 text-muted-foreground">
               À vérifier avant publication : les éventuels transferts de données
-              hors de l&lsquo;Union européenne et les garanties applicables
+              hors de l&rsquo;Union européenne et les garanties applicables
               auprès des prestataires Formspree et Vercel.
             </p>
           </section>
@@ -326,14 +404,14 @@ export default function PrivacyPage() {
               Les données personnelles sont conservées pendant une durée
               proportionnée à la finalité pour laquelle elles ont été
               collectées. Elles doivent être supprimées ou archivées lorsque
-              leur conservation n&lsquo;est plus nécessaire au traitement de la
+              leur conservation n&rsquo;est plus nécessaire au traitement de la
               demande, sous réserve des obligations légales applicables.
             </p>
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Les durées de conservation doivent être définies par
-              l&lsquo;association pour les demandes de contact et les demandes
-              de séance d&lsquo;essai. Il convient également de tenir compte des
+              l&rsquo;association pour les demandes de contact et les demandes
+              de séance d&rsquo;essai. Il convient également de tenir compte des
               éventuelles durées de conservation appliquées par les
               prestataires.
             </p>
@@ -343,7 +421,7 @@ export default function PrivacyPage() {
                 Formulaire de contact : [Durée de conservation à définir].
               </li>
               <li>
-                Demande de séance d&lsquo;essai : [Durée de conservation à
+                Demande de séance d&rsquo;essai : [Durée de conservation à
                 définir].
               </li>
               <li>
@@ -366,14 +444,14 @@ export default function PrivacyPage() {
             </p>
 
             <ul className="mt-4 list-inside list-disc space-y-2 leading-7 text-muted-foreground">
-              <li>Droit d&lsquo;accès à vos données ;</li>
+              <li>Droit d&rsquo;accès à vos données ;</li>
               <li>Droit de rectification des données inexactes ;</li>
               <li>
-                Droit à l&lsquo;effacement, lorsque les conditions sont réunies
+                Droit à l&rsquo;effacement, lorsque les conditions sont réunies
                 ;
               </li>
               <li>Droit à la limitation du traitement ;</li>
-              <li>Droit d&lsquo;opposition à certains traitements ;</li>
+              <li>Droit d&rsquo;opposition à certains traitements ;</li>
               <li>
                 Droit à la portabilité, lorsque les conditions légales
                 applicables sont réunies.
@@ -382,8 +460,8 @@ export default function PrivacyPage() {
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Pour exercer vos droits ou poser une question relative à
-              l&lsquo;utilisation de vos données, vous pouvez contacter
-              l&lsquo;association :
+              l&rsquo;utilisation de vos données, vous pouvez contacter
+              l&rsquo;association :
             </p>
 
             <p className="mt-3 leading-7 text-muted-foreground">
@@ -391,9 +469,9 @@ export default function PrivacyPage() {
             </p>
 
             <p className="mt-4 leading-7 text-muted-foreground">
-              Si vous estimez, après avoir contacté l&lsquo;association, que vos
+              Si vous estimez, après avoir contacté l&rsquo;association, que vos
               droits ne sont pas respectés, vous pouvez adresser une réclamation
-              à la Commission nationale de l&lsquo;informatique et des libertés
+              à la Commission nationale de l&rsquo;informatique et des libertés
               (CNIL).
             </p>
 
@@ -417,7 +495,7 @@ export default function PrivacyPage() {
 
             <p className="mt-4 leading-7 text-muted-foreground">
               Un cookie ou un autre traceur peut être utilisé pour assurer
-              certaines fonctionnalités techniques d&lsquo;un site internet ou
+              certaines fonctionnalités techniques d&rsquo;un site internet ou
               mesurer son audience.
             </p>
 
@@ -431,7 +509,7 @@ export default function PrivacyPage() {
             <p className="mt-4 rounded-lg border bg-muted p-4 text-sm leading-6 text-muted-foreground">
               À vérifier avant publication : contrôler les cookies et traceurs
               réellement déposés par le site, notamment ceux éventuellement
-              associés à l&lsquo;hébergement, aux formulaires ou à des services
+              associés à l&rsquo;hébergement, aux formulaires ou à des services
               tiers. Indiquer ici le résultat de cette vérification.
             </p>
 
@@ -454,7 +532,7 @@ export default function PrivacyPage() {
             </h2>
 
             <p className="mt-4 leading-7 text-muted-foreground">
-              L&lsquo;association veille à limiter l&lsquo;accès aux données
+              L&rsquo;association veille à limiter l&rsquo;accès aux données
               personnelles aux seules personnes qui en ont besoin pour traiter
               les demandes.
             </p>
@@ -464,7 +542,7 @@ export default function PrivacyPage() {
               utilisés pour transmettre, héberger et consulter les informations.
               Aucun système de transmission ou de stockage ne pouvant garantir
               une sécurité absolue, les visiteurs sont invités à ne pas
-              communiquer d&lsquo;informations sensibles dans les formulaires.
+              communiquer d&rsquo;informations sensibles dans les formulaires.
             </p>
           </section>
 
@@ -475,7 +553,7 @@ export default function PrivacyPage() {
             </h2>
 
             <p className="mt-4 leading-7 text-muted-foreground">
-              Cette politique peut être modifiée en cas d&lsquo;évolution du
+              Cette politique peut être modifiée en cas d&rsquo;évolution du
               site, des formulaires, des prestataires ou des traitements de
               données personnelles.
             </p>
@@ -498,8 +576,8 @@ export default function PrivacyPage() {
             </h2>
 
             <p className="mt-3 leading-7 text-muted-foreground">
-              Pour en savoir plus sur l&lsquo;association et les informations
-              relatives à l&lsquo;édition du site, consultez également les
+              Pour en savoir plus sur l&rsquo;association et les informations
+              relatives à l&rsquo;édition du site, consultez également les
               mentions légales.
             </p>
 

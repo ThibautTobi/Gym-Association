@@ -2,8 +2,18 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import PageIntro from "@/components/sections/PageIntro";
+
 import { events, getEventBySlug } from "@/lib/data/events";
 import { SITE_NAME, SITE_URL, SITE_OG_IMAGE } from "@/lib/site";
+
+/**
+ * Emplacement : app/evenements/[slug]/page.tsx
+ *
+ * Page dynamique de présentation d'un événement.
+ *
+ * Les informations proviennent de :
+ * lib/data/events.ts
+ */
 
 interface EventPageProps {
   params: Promise<{
@@ -12,8 +22,7 @@ interface EventPageProps {
 }
 
 /**
- * Génère uniquement les pages des événements réellement présents
- * dans lib/data/events.ts.
+ * Génère uniquement les pages des événements existants.
  */
 export function generateStaticParams() {
   return events.map((event) => ({
@@ -22,7 +31,7 @@ export function generateStaticParams() {
 }
 
 /**
- * Métadonnées SEO propres à chaque événement.
+ * Génère des métadonnées SEO propres à chaque événement.
  */
 export async function generateMetadata({
   params,
@@ -30,29 +39,36 @@ export async function generateMetadata({
   const { slug } = await params;
   const event = getEventBySlug(slug);
 
+  // Un événement inexistant ne doit pas être indexé.
   if (!event) {
     return {
       title: "Événement introuvable",
+      description: "Cet événement n'existe pas ou n'est plus disponible.",
       robots: {
         index: false,
-        follow: true,
+        follow: false,
       },
     };
   }
 
-  const canonical = `/evenements/${event.slug}`;
+  const pageUrl = `${SITE_URL}/evenements/${event.slug}`;
 
   return {
     title: event.title,
     description: event.description,
+
+    // URL canonique propre à l'événement.
     alternates: {
-      canonical,
+      canonical: `/evenements/${event.slug}`,
     },
+
+    // Aperçu lors du partage sur les réseaux sociaux.
     openGraph: {
       type: "article",
-      url: `${SITE_URL}${canonical}`,
+      locale: "fr_FR",
+      url: pageUrl,
       siteName: SITE_NAME,
-      title: event.title,
+      title: `${event.title} | ${SITE_NAME}`,
       description: event.description,
       images: [
         {
@@ -61,9 +77,11 @@ export async function generateMetadata({
         },
       ],
     },
+
+    // Aperçu lors du partage sur X.
     twitter: {
       card: "summary_large_image",
-      title: event.title,
+      title: `${event.title} | ${SITE_NAME}`,
       description: event.description,
       images: [SITE_OG_IMAGE],
     },
@@ -71,16 +89,18 @@ export async function generateMetadata({
 }
 
 /**
- * Page détaillée d'un événement.
+ * Affiche le détail d'un événement.
  */
 export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params;
   const event = getEventBySlug(slug);
 
+  // Affiche la page 404 si l'événement n'existe pas.
   if (!event) {
     notFound();
   }
 
+  // Utilise midi pour éviter les décalages de date liés au fuseau horaire.
   const formattedDate = new Intl.DateTimeFormat("fr-FR", {
     dateStyle: "long",
   }).format(new Date(`${event.date}T12:00:00`));
@@ -102,6 +122,7 @@ export default async function EventPage({ params }: EventPageProps) {
               <dt className="text-sm font-semibold text-muted-foreground">
                 Date
               </dt>
+
               <dd className="mt-1">
                 <time dateTime={event.date}>{formattedDate}</time>
               </dd>
@@ -111,6 +132,7 @@ export default async function EventPage({ params }: EventPageProps) {
               <dt className="text-sm font-semibold text-muted-foreground">
                 Lieu
               </dt>
+
               <dd className="mt-1">{event.location}</dd>
             </div>
           </dl>

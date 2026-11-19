@@ -130,12 +130,21 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
         url: pageUrl,
         name: `${activity.title} | ${SITE_NAME}`,
         description: activity.shortDescription,
+
+        // Langue principale du contenu de la page.
+        inLanguage: "fr-FR",
+
+        // Rattachement au site internet.
         isPartOf: {
-          "@type": "WebSite",
           "@id": `${SITE_URL}/#website`,
-          url: SITE_URL,
-          name: SITE_NAME,
         },
+
+        // Association présentée par cette page.
+        about: {
+          "@id": `${SITE_URL}/#organization`,
+        },
+
+        // Référence vers le fil d'Ariane.
         breadcrumb: {
           "@id": `${pageUrl}#breadcrumb`,
         },

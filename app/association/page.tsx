@@ -4,12 +4,113 @@ import type { LucideIcon } from "lucide-react";
 
 import PageIntro from "@/components/sections/PageIntro";
 
+import {
+  SITE_NAME,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_ALT,
+  SITE_OG_IMAGE_DIMENSIONS,
+  SITE_URL,
+} from "@/lib/site";
+
+/**
+ * Emplacement : app/association/page.tsx
+ *
+ * Page de présentation de l'association.
+ */
+
+// URL absolue de la page.
+const PAGE_URL = `${SITE_URL}/association`;
+
+const PAGE_TITLE = `L'association | ${SITE_NAME}`;
+
+const PAGE_DESCRIPTION =
+  "Découvrez Gymnastique Val de Saâne, son histoire, son fonctionnement, ses missions et les valeurs qui guident la vie de l'association.";
+
+/**
+ * Données structurées JSON-LD propres à la page Association.
+ *
+ * Le graphe global SportsOrganization et WebSite est déjà déclaré
+ * dans app/layout.tsx. Nous ne le dupliquons donc pas ici.
+ */
+const associationJsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": `${PAGE_URL}#webpage`,
+      url: PAGE_URL,
+      name: PAGE_TITLE,
+      description: PAGE_DESCRIPTION,
+      inLanguage: "fr-FR",
+      isPartOf: {
+        "@id": `${SITE_URL}/#website`,
+      },
+      about: {
+        "@id": `${SITE_URL}/#organization`,
+      },
+      breadcrumb: {
+        "@id": `${PAGE_URL}#breadcrumb`,
+      },
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": `${PAGE_URL}#breadcrumb`,
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: SITE_URL,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "L'association",
+          item: PAGE_URL,
+        },
+      ],
+    },
+  ],
+};
+
+/**
+ * Métadonnées SEO de la page association.
+ */
 export const metadata: Metadata = {
   title: "L'association",
-  description:
-    "Découvrez Gym'Association, son histoire, son fonctionnement et ses valeurs.",
+  description: PAGE_DESCRIPTION,
+
   alternates: {
     canonical: "/association",
+  },
+
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: PAGE_URL,
+    siteName: SITE_NAME,
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+        width: SITE_OG_IMAGE_DIMENSIONS.width,
+        height: SITE_OG_IMAGE_DIMENSIONS.height,
+        alt: SITE_OG_IMAGE_ALT,
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: PAGE_TITLE,
+    description: PAGE_DESCRIPTION,
+    images: [
+      {
+        url: SITE_OG_IMAGE,
+        alt: SITE_OG_IMAGE_ALT,
+      },
+    ],
   },
 };
 
@@ -45,6 +146,14 @@ const values: Value[] = [
 export default function AssociationPage() {
   return (
     <>
+      {/* Données structurées JSON-LD de la page Association */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(associationJsonLd).replace(/</g, "\\u003c"),
+        }}
+      />
+
       <PageIntro
         eyebrow="Notre association"
         title="Une association sportive à taille humaine"
@@ -60,8 +169,8 @@ export default function AssociationPage() {
               </h2>
 
               <p className="mt-4 leading-8 text-muted-foreground">
-                Gym Val de saâne est une association sportive de cours
-                collectifs et specialisée à la pratique et à la découverte de la
+                Gym Val de Saâne est une association sportive de cours
+                collectifs spécialisée dans la pratique et la découverte de la
                 gymnastique.
               </p>
             </section>
