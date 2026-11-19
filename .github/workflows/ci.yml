@@ -12,6 +12,7 @@ on:
       - "refactor/**"
       - "test/**"
       - "docs/**"
+      - "seo/**"
 
   pull_request:
     branches:
@@ -20,6 +21,10 @@ on:
 
 permissions:
   contents: read
+
+# Variables d'environnement communes à tous les jobs
+env:
+  NEXT_PUBLIC_SITE_URL: "https://gym-association.vercel.app"
 
 jobs:
   quality:
