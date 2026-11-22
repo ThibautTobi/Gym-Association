@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Données centralisées des activités de Gymnastique Val de Saâne.
  *
  * Ce fichier sert de source unique pour :
@@ -44,6 +44,8 @@ export interface Activity {
 
     /** Description accessible de l'image */
     alt: string;
+    width: number;
+    height: number;
   };
 
   /**
@@ -97,6 +99,8 @@ export const activities: Activity[] = [
     image: {
       src: "/images/baby-gym.webp",
       alt: "Jeunes enfants participant à une séance de Baby Gym sur un parcours de motricité.",
+      width: 1671,
+      height: 941,
     },
   },
 
@@ -128,6 +132,8 @@ export const activities: Activity[] = [
     image: {
       src: "/images/gymnastique-loisir.webp",
       alt: "Enfant réalisant un exercice de gymnastique artistique sur un tapis.",
+      width: 1670,
+      height: 941,
     },
   },
 
@@ -160,6 +166,8 @@ export const activities: Activity[] = [
     image: {
       src: "/images/gymnastique-aerobic.webp",
       alt: "Pratique de la gymnastique aérobic avec des mouvements dynamiques et chorégraphiés.",
+      width: 1670,
+      height: 941,
     },
   },
 
@@ -192,6 +200,8 @@ export const activities: Activity[] = [
     image: {
       src: "/images/marche.webp",
       alt: "Groupe de personnes pratiquant la marche active en extérieur.",
+      width: 1670,
+      height: 942,
     },
   },
 
@@ -224,6 +234,8 @@ export const activities: Activity[] = [
     image: {
       src: "/images/pilates.webp",
       alt: "Personne réalisant un exercice de Pilates sur un tapis.",
+      width: 1670,
+      height: 942,
     },
   },
 
@@ -256,6 +268,8 @@ export const activities: Activity[] = [
     image: {
       src: "/images/circuit-training.webp",
       alt: "Séance de cardio-training avec des exercices de remise en forme.",
+      width: 1670,
+      height: 942,
     },
   },
 
@@ -285,6 +299,8 @@ export const activities: Activity[] = [
     image: {
       src: "/images/LTcoaching.webp",
       alt: "Illustration de l'activité de coaching sportif personnalisé LT Coaching.",
+      width: 1670,
+      height: 942,
     },
 
     lien: "https://lt-coaching.vercel.app/",

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Configuration centrale du site Gymnastique Val de Saâne.
  *
  * Ce fichier centralise :
@@ -30,10 +30,10 @@ export const SITE_DESCRIPTION =
  * Image utilisée lors du partage du site sur les réseaux sociaux.
  *
  * Emplacement physique :
- * public/images/og-image.jpg
+ * public/images/og/og-gymnastique-val-de-saane.webp
  *
  * URL publique :
- * /images/og-image.jpg
+ * /images/og/og-gymnastique-val-de-saane.webp
  *
  * Dimensions recommandées : 1200 x 630 pixels.
  */
