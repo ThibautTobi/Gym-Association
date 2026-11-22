@@ -1,10 +1,15 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 import PageIntro from "@/components/sections/PageIntro";
 
 import { events, getEventBySlug } from "@/lib/data/events";
-import { SITE_NAME, SITE_URL, SITE_OG_IMAGE } from "@/lib/site";
+import {
+  SITE_NAME,
+  SITE_URL,
+  SITE_OG_IMAGE,
+  SITE_OG_IMAGE_DIMENSIONS,
+} from "@/lib/site";
 
 /**
  * Emplacement : app/evenements/[slug]/page.tsx
@@ -74,6 +79,8 @@ export async function generateMetadata({
         {
           url: SITE_OG_IMAGE,
           alt: `Événement organisé par ${SITE_NAME}`,
+          width: SITE_OG_IMAGE_DIMENSIONS.width,
+          height: SITE_OG_IMAGE_DIMENSIONS.height,
         },
       ],
     },

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Gauge, Users } from "lucide-react";
@@ -81,6 +81,8 @@ export async function generateMetadata({
         {
           url: activity.image.src,
           alt: activity.image.alt,
+          width: activity.image.width,
+          height: activity.image.height,
         },
       ],
     },
@@ -93,6 +95,8 @@ export async function generateMetadata({
         {
           url: activity.image.src,
           alt: activity.image.alt,
+          width: activity.image.width,
+          height: activity.image.height,
         },
       ],
     },
