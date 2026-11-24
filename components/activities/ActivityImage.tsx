@@ -64,6 +64,13 @@ interface ActivityImageProps {
   aspect?: keyof typeof aspectClasses;
   fit?: keyof typeof fitClasses;
 
+  /**
+   * Précharge l'image lorsqu'elle constitue l'image principale
+   * visible dès l'arrivée sur la page.
+   */
+  preload?: boolean;
+  priority?: boolean;
+
   /** Classes supplémentaires pour le cadre (ex. "rounded-xl border"). */
   className?: string;
 }
@@ -74,6 +81,8 @@ export default function ActivityImage({
   sizes = ACTIVITY_CARD_SIZES,
   aspect = "card",
   fit = "contain",
+  preload = false,
+  priority = false,
   className = "",
 }: ActivityImageProps) {
   return (
@@ -90,6 +99,9 @@ export default function ActivityImage({
         alt={alt}
         fill
         sizes={sizes}
+        preload={preload}
+        loading={priority ? "eager" : undefined}
+        fetchPriority={priority ? "high" : undefined}
         className={fitClasses[fit]}
       />
     </div>

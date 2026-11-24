@@ -5,6 +5,7 @@ import type { Activity } from "@/lib/data/activities";
 
 interface ActivityCardProps {
   activity: Activity;
+  priority?: boolean;
 }
 
 /**
@@ -16,11 +17,18 @@ interface ActivityCardProps {
  *
  * Emplacement : components/activities/ActivityCard.tsx
  */
-export default function ActivityCard({ activity }: ActivityCardProps) {
+export default function ActivityCard({
+  activity,
+  priority = false,
+}: ActivityCardProps) {
   return (
     <article className="group flex h-full flex-col overflow-hidden rounded-xl border bg-card shadow-sm transition-shadow duration-300 hover:shadow-md motion-reduce:transition-none">
       {/* Image de l'activité */}
-      <ActivityImage src={activity.image.src} alt={activity.image.alt} />
+      <ActivityImage
+        src={activity.image.src}
+        alt={activity.image.alt}
+        priority={priority}
+      />
 
       {/* Informations principales */}
       <div className="flex flex-1 flex-col p-6">

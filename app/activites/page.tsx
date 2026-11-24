@@ -102,6 +102,24 @@ function ActivitiesStructuredData() {
           "@id": `${pageUrl}#breadcrumb`,
         },
       },
+      {
+        "@type": "BreadcrumbList",
+        "@id": `${pageUrl}#breadcrumb`,
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "Accueil",
+            item: SITE_URL,
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: "Activités",
+            item: pageUrl,
+          },
+        ],
+      },
     ],
   };
 
@@ -141,8 +159,12 @@ export default function ActivitiesPage() {
           </h2>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {activities.map((activity) => (
-              <ActivityCard key={activity.slug} activity={activity} />
+            {activities.map((activity, index) => (
+              <ActivityCard
+                key={activity.slug}
+                activity={activity}
+                priority={index === 0}
+              />
             ))}
           </div>
         </div>
