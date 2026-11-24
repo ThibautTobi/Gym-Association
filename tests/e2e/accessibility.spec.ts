@@ -2,43 +2,20 @@ import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
 const pagesToTest = [
-  {
-    name: "Accueil",
-    url: "/",
-  },
-  {
-    name: "Activités",
-    url: "/activites",
-  },
-  {
-    name: "Horaires",
-    url: "/horaires",
-  },
-  {
-    name: "Actualités",
-    url: "/actualites",
-  },
-  {
-    name: "Événements",
-    url: "/evenements",
-  },
-  {
-    name: "Galerie",
-    url: "/galerie",
-  },
-  {
-    name: "Inscription",
-    url: "/inscription",
-  },
-  {
-    name: "Contact",
-    url: "/contact",
-  },
+  { name: "Accueil", url: "/" },
+  { name: "Activites", url: "/activites" },
+  { name: "Activite Pilates", url: "/activites/pilates" },
+  { name: "Horaires", url: "/horaires" },
+  { name: "Actualites", url: "/actualites" },
+  { name: "Evenements", url: "/evenements" },
+  { name: "Galerie", url: "/galerie" },
+  { name: "Essai", url: "/essai" },
+  { name: "Contact", url: "/contact" },
 ];
 
-test.describe("Accessibilité", () => {
+test.describe("Accessibilite", () => {
   for (const currentPage of pagesToTest) {
-    test(`${currentPage.name} ne présente pas de violation critique`, async ({
+    test(`${currentPage.name} ne presente pas de violation grave`, async ({
       page,
     }) => {
       await page.goto(currentPage.url);
@@ -47,13 +24,25 @@ test.describe("Accessibilité", () => {
         page,
       }).analyze();
 
-      const criticalViolations = accessibilityScanResults.violations.filter(
-        (violation) => violation.impact === "critical",
+      const seriousViolations = accessibilityScanResults.violations.filter(
+        (violation) =>
+          violation.impact === "critical" || violation.impact === "serious",
       );
 
+      const report = seriousViolations.map((violation) => ({
+        id: violation.id,
+        impact: violation.impact,
+        description: violation.description,
+        help: violation.help,
+        nodes: violation.nodes.map((node) => ({
+          target: node.target,
+          summary: node.failureSummary,
+        })),
+      }));
+
       expect(
-        criticalViolations,
-        `Violations critiques détectées sur ${currentPage.name}`,
+        report,
+        `Violations graves detectees sur ${currentPage.name} : ${JSON.stringify(report, null, 2)}`,
       ).toEqual([]);
     });
   }

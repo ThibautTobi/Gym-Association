@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Gauge, Users } from "lucide-react";
@@ -207,6 +207,7 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
               alt={activity.image.alt}
               sizes="(min-width: 1024px) 640px, 100vw"
               aspect="wide"
+              preload
               className="rounded-xl border"
             />
 
@@ -259,36 +260,34 @@ export default async function ActivityPage({ params }: ActivityPageProps) {
             <h2 className="text-lg font-semibold">Informations</h2>
 
             <dl className="mt-5 space-y-5 text-sm">
-              <div className="flex items-start gap-3">
-                <span
-                  aria-hidden="true"
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
-                >
-                  <Users className="h-4 w-4" strokeWidth={1.75} />
-                </span>
-
-                <div>
-                  <dt className="font-semibold">Tranche d&rsquo;âge</dt>
-                  <dd className="mt-1 text-muted-foreground">
-                    {activity.ageRange}
-                  </dd>
-                </div>
+              <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-x-3">
+                <dt className="col-span-2 flex items-center gap-3 font-semibold">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
+                  >
+                    <Users className="h-4 w-4" strokeWidth={1.75} />
+                  </span>
+                  Tranche d&rsquo;âge
+                </dt>
+                <dd className="col-start-2 mt-1 text-muted-foreground">
+                  {activity.ageRange}
+                </dd>
               </div>
 
-              <div className="flex items-start gap-3">
-                <span
-                  aria-hidden="true"
-                  className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
-                >
-                  <Gauge className="h-4 w-4" strokeWidth={1.75} />
-                </span>
-
-                <div>
-                  <dt className="font-semibold">Niveau</dt>
-                  <dd className="mt-1 text-muted-foreground">
-                    {activity.level}
-                  </dd>
-                </div>
+              <div className="grid grid-cols-[2.25rem_minmax(0,1fr)] items-start gap-x-3">
+                <dt className="col-span-2 flex items-center gap-3 font-semibold">
+                  <span
+                    aria-hidden="true"
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
+                  >
+                    <Gauge className="h-4 w-4" strokeWidth={1.75} />
+                  </span>
+                  Niveau
+                </dt>
+                <dd className="col-start-2 mt-1 text-muted-foreground">
+                  {activity.level}
+                </dd>
               </div>
             </dl>
           </aside>

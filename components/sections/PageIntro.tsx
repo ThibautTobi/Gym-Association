@@ -45,7 +45,7 @@ export default function PageIntro({
         )}
 
         {schedule && (
-          <p className="mt-4 inline-flex max-w-2xl items-start gap-2 rounded-lg bg-primary/10 px-3 py-2 text-sm font-medium text-primary">
+          <p className="mt-4 inline-flex max-w-2xl items-start gap-2 rounded-lg bg-primary/10 px-3 py-2 text-sm font-medium text-[#1d4ed8]">
             <Clock
               className="mt-0.5 h-4 w-4 shrink-0"
               strokeWidth={1.75}

@@ -34,7 +34,7 @@ export default function Hero() {
       <div className="mx-auto grid min-h-130 max-w-7xl items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-28">
         {/* Contenu textuel */}
         <div className="max-w-2xl">
-          <p className="mb-4 text-m font-bold uppercase tracking-[0.2em] text-accent">
+          <p className="mb-4 text-m font-bold uppercase tracking-[0.2em] text-white">
             Association sportive
           </p>
 
@@ -45,7 +45,7 @@ export default function Hero() {
             Bougez. Progressez. Partagez.
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg leading-8 text-primary-foreground/90">
+          <p className="mt-6 max-w-xl text-lg leading-8 text-primary-foreground">
             Découvrez les cours collectifs et la gymnastique dans un
             environnement convivial, accessible et adapté à tous les niveaux.
           </p>
@@ -53,7 +53,7 @@ export default function Hero() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <Link
               href="/activites"
-              className="inline-flex min-h-11 items-center justify-center rounded-md bg-accent px-6 py-3 font-semibold text-secondary-foreground transition-opacity hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
+              className="inline-flex min-h-11 items-center justify-center rounded-md bg-[#047857] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#065f46] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2"
             >
               Découvrir nos activités
             </Link>
